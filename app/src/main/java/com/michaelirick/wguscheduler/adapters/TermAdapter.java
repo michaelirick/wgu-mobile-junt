@@ -14,6 +14,8 @@ import com.michaelirick.wguscheduler.views.terms.TermView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.michaelirick.wguscheduler.Converters.setDateText;
+
 public class TermAdapter extends Adapter<Term, TermView> {
     @Override
     public TermView createView(View itemView) {
@@ -28,7 +30,7 @@ public class TermAdapter extends Adapter<Term, TermView> {
     @Override
     public void setFields(TermView holder, Term current) {
         holder.textViewTitle.setText(current.getTitle());
-        holder.textViewStartDate.setText(current.getStartDate().toString());
-        holder.textViewEndDate.setText(current.getEndDate().toString());
+        setDateText(holder.textViewStartDate, current.getStartDate());
+        setDateText(holder.textViewEndDate, current.getEndDate());
     }
 }
