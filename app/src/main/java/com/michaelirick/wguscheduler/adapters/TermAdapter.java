@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.models.Term;
-import com.michaelirick.wguscheduler.views.TermView;
+import com.michaelirick.wguscheduler.views.terms.TermView;
 
 import java.util.ArrayList;
 import java.util.List;
