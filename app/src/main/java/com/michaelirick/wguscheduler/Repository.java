@@ -7,16 +7,9 @@ import android.os.AsyncTask;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class Repository<T> {
-    private WGUDao<T> dao;
-    private LiveData<List<T>> cachedList;
-
-    public Repository(Application app) {
-        WGUDatabase database = WGUDatabase.getInstance(app);
-        ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
-        dao = database.getDao((Class<T>) superClass.getActualTypeArguments()[0]);
-        cachedList = dao.all();
-    }
+public abstract class Repository<T> {
+    public WGUDao<T> dao;
+    public LiveData<List<T>> cachedList;
 
     public void insert(T t) {
         new InsertAsyncTask(dao).execute(t);

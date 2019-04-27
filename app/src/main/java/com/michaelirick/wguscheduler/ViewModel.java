@@ -8,13 +8,11 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 public class ViewModel<T> extends AndroidViewModel {
-    private Repository<T> repository;
-    private LiveData<List<T>> cachedList;
+    public Repository<T> repository;
+    public LiveData<List<T>> cachedList;
 
-    public ViewModel(@NonNull Application application) {
+    public ViewModel(Application application) {
         super(application);
-        repository = new Repository(application);
-        cachedList = repository.all();
     }
 
     public void insert(T t) {

@@ -11,6 +11,8 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
+import android.os.Debug;
+import android.util.Log;
 
 import com.michaelirick.wguscheduler.daos.TermDao;
 import com.michaelirick.wguscheduler.models.Term;
@@ -24,7 +26,7 @@ public abstract class WGUDatabase extends RoomDatabase {
     public abstract TermDao termDoa();
 
     public WGUDao getDao(Class dao) {
-        if(dao.getName().equals("Term"))
+        if(dao.getName().equals("com.michaelirick.wguscheduler.models.Term"))
             return termDoa();
         return null;
     }
