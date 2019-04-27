@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.michaelirick.wguscheduler.Adapter;
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.models.Term;
 import com.michaelirick.wguscheduler.views.terms.TermView;
@@ -13,32 +14,21 @@ import com.michaelirick.wguscheduler.views.terms.TermView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TermAdapter extends RecyclerView.Adapter<TermView> {
-    private List<Term> terms = new ArrayList<>();
-
-    @NonNull
+public class TermAdapter extends Adapter<Term, TermView> {
     @Override
-    public TermView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.term_item, parent, false);
+    public TermView createView(View itemView) {
         return new TermView(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TermView holder, int position) {
-        Term current = terms.get(position);
-        holder.textViewTitle.setText(current.getTitle());
-        holder.textViewStartDate.setText(current.getStartDate().toString());
-        holder.textViewEndDate.setText(current.getEndDate().toString());
+    public int getItemId() {
+        return R.layout.term_item;
     }
 
     @Override
-    public int getItemCount() {
-        return terms.size();
-    }
-
-    public void set(List<Term> terms) {
-        this.terms = terms;
-        notifyDataSetChanged();
+    public void setFields(TermView holder, Term current) {
+        holder.textViewTitle.setText(current.getTitle());
+        holder.textViewStartDate.setText(current.getStartDate().toString());
+        holder.textViewEndDate.setText(current.getEndDate().toString());
     }
 }
