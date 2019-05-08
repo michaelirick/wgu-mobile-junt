@@ -2,7 +2,9 @@ package com.michaelirick.wguscheduler;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,6 +22,7 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
         setupView();
         Intent intent = getIntent();
         if (intent.hasExtra(getIdExtra(intent))) {
+            Log.d("test", "edit");
             setTitle("Edit");
             setFields(intent);
         } else {

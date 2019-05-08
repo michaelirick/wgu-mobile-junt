@@ -22,6 +22,8 @@ import com.michaelirick.wguscheduler.models.Term;
 import java.util.Date;
 import java.util.List;
 
+import static com.michaelirick.wguscheduler.Converters.dateToTimestamp;
+
 public class TermsActivity extends IndexActivity<Term> {
     private static final int ADD_REQUEST = 1;
     private static final int EDIT_REQUEST = 2;
@@ -37,8 +39,16 @@ public class TermsActivity extends IndexActivity<Term> {
     }
 
     @Override
-    public Intent createIntent() {
-        return new Intent(TermsActivity.this, AddEditTermActivity.class);
+    public Intent createIntent(Term t) {
+        Intent intent = new Intent(TermsActivity.this, AddEditTermActivity.class);
+        if(t != null) {
+            intent.putExtra(AddEditTermActivity.EXTRA_ID, t.getId());
+            intent.putExtra(AddEditTermActivity.EXTRA_TITLE, t.getTitle());
+            intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, dateToTimestamp(t.getStartDate()));
+            intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, dateToTimestamp(t.getEndDate()));
+        }
+
+        return intent;
     }
 
     @Override
@@ -79,4 +89,7 @@ public class TermsActivity extends IndexActivity<Term> {
     public int getElementId(Intent data) {
         return data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
     }
+
+
+
 }

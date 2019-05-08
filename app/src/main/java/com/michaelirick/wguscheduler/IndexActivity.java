@@ -9,7 +9,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.michaelirick.wguscheduler.adapters.TermAdapter;
@@ -25,7 +27,7 @@ public abstract class IndexActivity<T extends Model> extends AppCompatActivity {
 
     public abstract int getAddButtonId();
     public abstract int getActivityId();
-    public abstract Intent createIntent();
+    public abstract Intent createIntent(T t);
     public abstract int getAddRequest();
     public abstract int getEditRequest();
     public abstract int getRecyclerViewId();
@@ -42,7 +44,7 @@ public abstract class IndexActivity<T extends Model> extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = createIntent();
+                Intent intent = createIntent(null);
                 startActivityForResult(intent, getAddRequest());
             }
         });
@@ -60,6 +62,17 @@ public abstract class IndexActivity<T extends Model> extends AppCompatActivity {
                 adapter.set(ts);
             }
         });
+
+        //setClickListener(adapter);
+        adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o) {
+                Log.d("TEST","OnItemClick");
+                Intent intent = createIntent((T)o);
+                startActivityForResult(intent,getEditRequest());
+            }
+        });
+
     }
 
 
