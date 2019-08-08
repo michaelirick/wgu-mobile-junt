@@ -1,6 +1,9 @@
 package com.michaelirick.wguscheduler;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+
+import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public abstract class AddEditActivity<T> extends AppCompatActivity {
 
@@ -21,13 +32,13 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setupView();
         Intent intent = getIntent();
-        if (intent.hasExtra(getIdExtra(intent))) {
+        if (intent.hasExtra("id")) {
             Log.d("test", "edit");
             setTitle("Edit");
-            setFields(intent);
         } else {
             setTitle("Add");
         }
+        setFields(intent);
     }
 
     public abstract Intent dataFromFields();
@@ -36,14 +47,15 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
         Intent intent = getIntent();
         Intent data = dataFromFields();
 
-        int id = intent.getIntExtra(getIdExtra(intent), -1);
+        int id = intent.getIntExtra("id", -1);
         if (id != -1) {
-            data.putExtra(getIdExtra(intent), id);
+            data.putExtra("id", id);
         }
 
         setResult(RESULT_OK, data);
         finish();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

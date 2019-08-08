@@ -36,6 +36,16 @@ public abstract class IndexActivity<T extends Model> extends AppCompatActivity {
     public abstract T newElement(Intent data);
     public abstract int getElementId(Intent data);
 
+    public void setOnClick(Adapter a) {
+        a.setOnItemClickListener(new Adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o) {
+                Intent intent = createIntent((T)o);
+                startActivityForResult(intent,getEditRequest());
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,16 +73,7 @@ public abstract class IndexActivity<T extends Model> extends AppCompatActivity {
             }
         });
 
-        //setClickListener(adapter);
-        adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Object o) {
-                Log.d("TEST","OnItemClick");
-                Intent intent = createIntent((T)o);
-                startActivityForResult(intent,getEditRequest());
-            }
-        });
-
+        setOnClick(adapter);
     }
 
 
@@ -94,7 +95,7 @@ public abstract class IndexActivity<T extends Model> extends AppCompatActivity {
             }
 
             T t = newElement(data);
-            t.setId(id);
+            //t.setId(id);
             vm.update(t);
 
             Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();

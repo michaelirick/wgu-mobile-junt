@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_title"
             android:text="Start Date" />
+        android:layout_alignParentEnd="true"
 
 
         <TextView
@@ -41,30 +42,53 @@
             android:text="End Date" />
 
         <TextView
-            android:id="@+id/text_view_courses_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Courses"
-            android:layout_below="@id/text_view_start_date"
-            />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/term_courses_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/course_item"
-            android:layout_below="@id/text_view_courses_label"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/button_add_course"
+            android:id="@+id/text_view_mentor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_below="@id/term_courses_recycler_view"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="32dp"
+            android:layout_below="@id/text_view_start_date"
+            android:text="Mentor Name" />
+        android:layout_alignParentEnd="true"
 
-            android:text="New Course"
-            />
+
+        <TextView
+            android:id="@+id/text_view_mentor_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_end_date"
+            android:layout_alignParentEnd="true"
+            android:text="Mentor Email" />
+
+        <TextView
+            android:id="@+id/text_view_mentor_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_mentor_name"
+            android:text="Mentor Phone" />
+        android:layout_alignParentEnd="true"
+
+
+        <TextView
+            android:id="@+id/text_view_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_mentor_email"
+            android:layout_alignParentEnd="true"
+            android:text="Status" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_view_assessments_label"
+            android:text="Assessments"
+            android:layout_below="@id/text_view_start_date"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/course_assessments_recycler_view"
+            tools:listitem="@layout/course_assessment_item"
+            android:layout_below="@id/text_view_assessments_label">
+
+        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 

@@ -30,4 +30,8 @@ public class Term extends Model {
     public Date getEndDate() {
         return endDate;
     }
+
+    public String toString() {
+        return this.title;
+    }
 }

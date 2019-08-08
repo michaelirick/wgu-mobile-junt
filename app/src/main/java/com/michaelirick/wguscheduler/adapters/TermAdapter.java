@@ -1,21 +1,21 @@
 package com.michaelirick.wguscheduler.adapters;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+        import android.support.annotation.NonNull;
+        import android.support.v7.widget.RecyclerView;
+        import android.view.LayoutInflater;
+        import android.view.MotionEvent;
+        import android.view.View;
+        import android.view.ViewGroup;
 
-import com.michaelirick.wguscheduler.Adapter;
-import com.michaelirick.wguscheduler.R;
-import com.michaelirick.wguscheduler.models.Term;
-import com.michaelirick.wguscheduler.views.terms.TermView;
+        import com.michaelirick.wguscheduler.Adapter;
+        import com.michaelirick.wguscheduler.R;
+        import com.michaelirick.wguscheduler.models.Term;
+        import com.michaelirick.wguscheduler.views.terms.TermView;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import static com.michaelirick.wguscheduler.Converters.setDateText;
+        import static com.michaelirick.wguscheduler.Converters.setDateText;
 
 public class TermAdapter extends Adapter<Term, TermView> {
     @Override

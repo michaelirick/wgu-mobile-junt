@@ -17,7 +17,9 @@ import com.michaelirick.wguscheduler.IndexActivity;
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.ViewModel;
 import com.michaelirick.wguscheduler.adapters.TermAdapter;
+import com.michaelirick.wguscheduler.models.Course;
 import com.michaelirick.wguscheduler.models.Term;
+import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
 
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,8 @@ public class TermsActivity extends IndexActivity<Term> {
     private static final int ADD_REQUEST = 1;
     private static final int EDIT_REQUEST = 2;
 
+    private static final int ADD_COURSE_REQUEST = 1;
+    private static final int EDIT_COURSE_REQUEST = 2;
     @Override
     public int getAddButtonId() {
         return R.id.button_add_term;
@@ -46,6 +50,19 @@ public class TermsActivity extends IndexActivity<Term> {
             intent.putExtra(AddEditTermActivity.EXTRA_TITLE, t.getTitle());
             intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, dateToTimestamp(t.getStartDate()));
             intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, dateToTimestamp(t.getEndDate()));
+        }
+
+        return intent;
+    }
+
+    public Intent createCourseIntent(Course c) {
+
+        Intent intent = new Intent(TermsActivity.this, AddEditCourseActivity.class);
+        if(c != null) {
+            intent.putExtra(AddEditCourseActivity.EXTRA_ID, c.getId());
+            intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, c.getTitle());
+            intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, dateToTimestamp(c.getStartDate()));
+            intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, dateToTimestamp(c.getEndDate()));
         }
 
         return intent;
@@ -70,6 +87,9 @@ public class TermsActivity extends IndexActivity<Term> {
     public Adapter getAdapter() {
         final TermAdapter adapter = new TermAdapter();
         return adapter;
+    }
+    public void setOnClick(Adapter a) {
+
     }
 
     @Override

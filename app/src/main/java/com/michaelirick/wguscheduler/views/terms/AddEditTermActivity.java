@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -27,6 +28,7 @@ public class AddEditTermActivity extends AddEditActivity<Term> {
             "com.michaelirick.wguscheduler.views.terms.EXTRA_START_DATE";
     public static final String EXTRA_END_DATE =
             "com.michaelirick.wguscheduler.views.terms.EXTRA_END_DATE";
+    private static final int COURSES_REQUEST = 1;
 
     private EditText editTextTitle;
     private DatePicker datePickerStartDate;
@@ -59,5 +61,11 @@ public class AddEditTermActivity extends AddEditActivity<Term> {
         data.putExtra(EXTRA_START_DATE, Converters.getDateFromDatePicker(datePickerStartDate).getTime());
         data.putExtra(EXTRA_END_DATE, Converters.getDateFromDatePicker(datePickerEndDate));
         return data;
+    }
+
+    public void coursesIndex(View view) {
+        Intent intent = new Intent(AddEditTermActivity.this, TermsActivity.class);
+       // intent.putExtra(AddEditTermActivity.EXTRA_ID, t.getId());
+        startActivityForResult(intent, COURSES_REQUEST);
     }
 }

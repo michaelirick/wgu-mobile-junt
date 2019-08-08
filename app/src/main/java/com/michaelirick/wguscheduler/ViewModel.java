@@ -4,12 +4,15 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ViewModel<T> extends AndroidViewModel {
+public class ViewModel<T extends Model> extends AndroidViewModel {
     public Repository<T> repository;
     public LiveData<List<T>> cachedList;
+    public LiveData<T> cachedFound;
 
     public ViewModel(Application application) {
         super(application);
@@ -20,6 +23,7 @@ public class ViewModel<T> extends AndroidViewModel {
     }
 
     public void update(T t) {
+        Log.d("test", "ViewModel::update(): " + t.toLongString());
         repository.update(t);
     }
 
@@ -27,7 +31,19 @@ public class ViewModel<T> extends AndroidViewModel {
         repository.delete(t);
     }
 
+    public LiveData<T> find(int i) {
+        return repository.find(i);
+    }
+
     public LiveData<List<T>> all() {
         return cachedList;
+    }
+
+    public LiveData<List<T>> allFor(int i) {
+        return repository.allFor(i);
+    }
+
+    public ArrayList<T> allForSelect() {
+        return new ArrayList<T>(repository.all().getValue());
     }
 }
