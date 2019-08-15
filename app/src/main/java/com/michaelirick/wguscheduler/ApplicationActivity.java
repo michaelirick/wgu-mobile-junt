@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.michaelirick.wguscheduler.views.courses.CourseIndexActivity;
 import com.michaelirick.wguscheduler.views.courses.CoursesActivity;
 import com.michaelirick.wguscheduler.views.terms.TermsActivity;
 
@@ -21,14 +22,26 @@ public abstract class ApplicationActivity
 
     public void setMenu() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        if(getSupportActionBar() == null) {
+//            setSupportActionBar(toolbar);
+//            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//            NavigationView navigationView = findViewById(R.id.nav_view);
+//            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//            drawer.addDrawerListener(toggle);
+//            toggle.syncState();
+//            navigationView.setNavigationItemSelectedListener(this);
+//        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
+        if(navigationView != null)
+            navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -75,7 +88,7 @@ public abstract class ApplicationActivity
             startActivityForResult(intent, TERMS_REQUEST);
         }
         if (id == R.id.nav_courses) {
-            Intent intent = new Intent(this, CoursesActivity.class);
+            Intent intent = new Intent(this, CourseIndexActivity.class);
             startActivityForResult(intent, COURSES_REQUEST);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.courses.CoursesActivity" />
+        <activity android:name=".views.courses.CourseIndexActivity" />
         <activity android:name=".views.courses.AddEditCourseActivity" />
     </application>
 
