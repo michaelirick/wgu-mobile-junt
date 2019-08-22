@@ -17,23 +17,11 @@ public class TermView extends RecyclerView.ViewHolder {
     public TextView textViewTitle;
     public TextView textViewStartDate;
     public TextView textViewEndDate;
-    public RecyclerView recyclerView;
-    public FloatingActionButton buttonAdd;
-    public Index<Course> courseIndex;
 
     public TermView(View itemView) {
         super(itemView);
         textViewTitle = itemView.findViewById(R.id.text_view_title);
         textViewStartDate = itemView.findViewById(R.id.text_view_start_date);
         textViewEndDate = itemView.findViewById(R.id.text_view_end_date);
-        recyclerView = itemView.findViewById(R.id.term_courses_recycler_view);
-        buttonAdd = itemView.findViewById(R.id.button_add_course);
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = createIntent(null);
-//                startActivityForResult(intent, ADD_REQUEST);
-            }
-        });
     }
 }

@@ -36,6 +36,20 @@ public class Index<T extends Model> {
     public Class addEditClass;
     public int filterId = -1;
 
+    public Index() {
+
+    }
+
+    public Index(Class k, FragmentActivity a, Class v, int b, int r, Class ae, Adapter ad) {
+        klass = k;
+        activity = a;
+        viewModelClass = v;
+        addButtonId = b;
+        recyclerViewId = r;
+        addEditClass = ae;
+        adapter = ad;
+    }
+
     public void setOnClick() {
         adapter.setOnItemClickListener(new Adapter.OnItemClickListener() {
             @Override

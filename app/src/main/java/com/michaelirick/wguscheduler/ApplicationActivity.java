@@ -10,8 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.michaelirick.wguscheduler.views.alerts.AlertIndexActivity;
+import com.michaelirick.wguscheduler.views.assessments.AssessmentIndexActivity;
 import com.michaelirick.wguscheduler.views.courses.CourseIndexActivity;
 import com.michaelirick.wguscheduler.views.courses.CoursesActivity;
+import com.michaelirick.wguscheduler.views.terms.TermIndexActivity;
 import com.michaelirick.wguscheduler.views.terms.TermsActivity;
 
 public abstract class ApplicationActivity
@@ -19,6 +22,8 @@ public abstract class ApplicationActivity
     implements NavigationView.OnNavigationItemSelectedListener {
     private static final int TERMS_REQUEST = 1;
     private static final int COURSES_REQUEST = 2;
+    private static final int ASSESSMENTS_REQUEST = 3;
+    private static final int ALERTS_REQUEST = 4;
 
     public void setMenu() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -84,16 +89,27 @@ public abstract class ApplicationActivity
 
 
         if (id == R.id.nav_terms) {
-            Intent intent = new Intent(this, TermsActivity.class);
-            startActivityForResult(intent, TERMS_REQUEST);
+            startView(TermIndexActivity.class, TERMS_REQUEST);
         }
         if (id == R.id.nav_courses) {
-            Intent intent = new Intent(this, CourseIndexActivity.class);
-            startActivityForResult(intent, COURSES_REQUEST);
+            startView(CourseIndexActivity.class, COURSES_REQUEST);
+        }
+        if(id == R.id.nav_assessments) {
+            startView(AssessmentIndexActivity.class, ASSESSMENTS_REQUEST);
+        }
+        if(id == R.id.nav_alerts) {
+            startView(AlertIndexActivity.class, ALERTS_REQUEST);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void startView(Class klass, int request) {
+        startActivityForResult(
+                new Intent(this, klass),
+                request
+        );
     }
 }
 

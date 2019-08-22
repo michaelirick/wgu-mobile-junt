@@ -39,32 +39,6 @@
             android:layout_below="@id/text_view_title"
             android:layout_alignParentEnd="true"
             android:text="End Date" />
-
-        <TextView
-            android:id="@+id/text_view_courses_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Courses"
-            android:layout_below="@id/text_view_start_date"
-            />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/term_courses_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/course_item"
-            android:layout_below="@id/text_view_courses_label"/>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/button_add_course"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_below="@id/term_courses_recycler_view"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="32dp"
-
-            android:text="New Course"
-            />
     </RelativeLayout>
 
 

@@ -9,16 +9,22 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.michaelirick.wguscheduler.AddEditActivity;
+import com.michaelirick.wguscheduler.CollapsePanel;
 import com.michaelirick.wguscheduler.Converters;
+import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.ModelSpinner;
 import com.michaelirick.wguscheduler.R;
+import com.michaelirick.wguscheduler.models.Assessment;
 import com.michaelirick.wguscheduler.models.Course;
 import com.michaelirick.wguscheduler.models.Term;
 import com.michaelirick.wguscheduler.views.terms.TermViewModel;
@@ -29,6 +35,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.michaelirick.wguscheduler.Converters.fromTimestamp;
 import static com.michaelirick.wguscheduler.Converters.now;
 import static com.michaelirick.wguscheduler.Converters.setDatePickerValue;
@@ -58,7 +65,20 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     private DatePicker datePickerStartDate;
     private DatePicker datePickerEndDate;
     ModelSpinner<Term> selectTerm;
+    private Button toggleInfo;
+    private Button getToggleAssessments;
+    private LinearLayout courseInfo;
+    private CollapsePanel infoPanel;
 
+    private CollapsePanel assessmentsPanel;
+    private LinearLayout assessmentsList;
+    private Button toggleAssessments;
+
+    private CollapsePanel alertsPanel;
+    private LinearLayout alertsList;
+    private Button toggleAlerts;
+
+    private Index<Assessment> assessmentsIndex;
 
     @Override
     public void setupView() {
@@ -66,6 +86,39 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         editTextTitle = findViewById(R.id.edit_text_title);
         datePickerStartDate = findViewById(R.id.date_picker_start_date);
         datePickerEndDate = findViewById(R.id.date_picker_end_date);
+        toggleInfo = findViewById(R.id.toggle_info);
+        courseInfo = findViewById(R.id.course_info);
+
+
+        infoPanel = new CollapsePanel(toggleInfo, courseInfo);
+        infoPanel.create();
+        infoPanel.toggleView(); // start closed
+
+        toggleAssessments = findViewById(R.id.toggle_assessments);
+        assessmentsList = findViewById(R.id.assessments_list);
+        assessmentsPanel = new CollapsePanel(toggleAssessments, assessmentsList);
+        assessmentsPanel.create();
+        assessmentsPanel.toggleView(); // start closed
+
+        toggleAlerts = findViewById(R.id.toggle_alerts);
+        alertsList = findViewById(R.id.alerts_list);
+        alertsPanel = new CollapsePanel(toggleAlerts, alertsList);
+        alertsPanel.create();
+        alertsPanel.toggleView(); // start closed
+
+    }
+
+    public void setupAssessments() {
+//        assessmentsIndex = new Index<Term>(
+//                Assessment.class,
+//                this,
+//                AssessmentViewModel.class,
+//                R.id.button_add_assessment,
+//                R.id.terms_recycler_view,
+//                AddEditAssessmentActivity.class,
+//                new AssessmentAdapter()
+//        );
+//        index.create();
     }
 
     @Override
@@ -107,4 +160,6 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         // intent.putExtra(AddEditCourseActivity.EXTRA_ID, t.getId());
         startActivityForResult(intent, COURSES_REQUEST);
     }
+
+
 }

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".views.terms.AddEditTermActivity"></activity>
-        <activity android:name=".views.terms.TermsActivity" />
+        <activity android:name=".views.terms.TermIndexActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -24,6 +24,10 @@
         <activity android:name=".views.courses.CoursesActivity" />
         <activity android:name=".views.courses.CourseIndexActivity" />
         <activity android:name=".views.courses.AddEditCourseActivity" />
+        <activity android:name=".views.assessments.AssessmentIndexActivity" />
+        <activity android:name=".views.assessments.AddEditAssessmentActivity" />
+        <activity android:name=".views.alerts.AlertIndexActivity"/>
+        <activity android:name=".views.alerts.AddEditAlertActivity"/>
     </application>
 
 </manifest>

@@ -75,20 +75,6 @@
             android:layout_alignParentEnd="true"
             android:text="Status" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_view_assessments_label"
-            android:text="Assessments"
-            android:layout_below="@id/text_view_start_date"/>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/course_assessments_recycler_view"
-            tools:listitem="@layout/course_assessment_item"
-            android:layout_below="@id/text_view_assessments_label">
-
-        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 
