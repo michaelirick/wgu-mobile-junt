@@ -123,8 +123,10 @@ public class Index<T extends Model> {
         setOnClick();
     }
 
-    public void processResult(int requestCode, int resultCode, Intent data) {
 
+
+    public void processResult(int requestCode, int resultCode, Intent data) {
+        Log.d("test", "processResult: " + requestCode + ", " + resultCode );
         if (requestCode == ADD_REQUEST && resultCode == RESULT_OK) {
             T t = newElement(data);
             vm.insert(t);
