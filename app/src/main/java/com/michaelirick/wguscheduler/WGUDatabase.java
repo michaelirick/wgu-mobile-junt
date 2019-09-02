@@ -7,10 +7,12 @@ import android.arch.persistence.room.RoomDatabase;
 import com.michaelirick.wguscheduler.daos.AlertDao;
 import com.michaelirick.wguscheduler.daos.AssessmentDao;
 import com.michaelirick.wguscheduler.daos.CourseDao;
+import com.michaelirick.wguscheduler.daos.NoteDao;
 import com.michaelirick.wguscheduler.daos.TermDao;
 import com.michaelirick.wguscheduler.models.Alert;
 import com.michaelirick.wguscheduler.models.Assessment;
 import com.michaelirick.wguscheduler.models.Course;
+import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.models.Term;
 
 import android.arch.persistence.room.Database;
@@ -25,7 +27,9 @@ import com.michaelirick.wguscheduler.models.Term;
 
 import java.util.List;
 
-@Database(entities = {Term.class, Course.class, Assessment.class, Alert.class}, version = 2)
+@Database(entities = {
+        Term.class, Course.class, Assessment.class, Alert.class, Note.class
+}, version = 2)
 @TypeConverters({Converters.class})
 public abstract class WGUDatabase extends RoomDatabase {
     private static com.michaelirick.wguscheduler.WGUDatabase instance;
@@ -33,6 +37,7 @@ public abstract class WGUDatabase extends RoomDatabase {
     public abstract CourseDao courseDoa();
     public abstract AssessmentDao assessmentDao();
     public abstract AlertDao alertDao();
+    public abstract NoteDao noteDao();
 
     public WGUDao getDao(Class dao) {
         if(dao.getName().equals("com.michaelirick.wguscheduler.models.Term"))
@@ -43,6 +48,8 @@ public abstract class WGUDatabase extends RoomDatabase {
             return alertDao();
         if(dao.getName().equals("com.michaelirick.wguscheduler.models.Assessment"))
             return assessmentDao();
+        if(dao.getName().equals("com.michaelirick.wguscheduler.models.Note"))
+            return noteDao();
         return null;
     }
 

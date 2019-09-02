@@ -24,10 +24,13 @@ import com.michaelirick.wguscheduler.Converters;
 import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.ModelSpinner;
 import com.michaelirick.wguscheduler.R;
+import com.michaelirick.wguscheduler.ViewModel;
+import com.michaelirick.wguscheduler.adapters.NoteAdapter;
 import com.michaelirick.wguscheduler.models.Assessment;
 import com.michaelirick.wguscheduler.models.Course;
 import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.models.Term;
+import com.michaelirick.wguscheduler.views.notes.NoteViewModel;
 import com.michaelirick.wguscheduler.views.terms.TermViewModel;
 
 
@@ -66,22 +69,6 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     private DatePicker datePickerStartDate;
     private DatePicker datePickerEndDate;
     ModelSpinner<Term> selectTerm;
-    private Button toggleInfo;
-    private Button getToggleAssessments;
-    private LinearLayout courseInfo;
-    private CollapsePanel infoPanel;
-
-    private CollapsePanel assessmentsPanel;
-    private LinearLayout assessmentsList;
-    private Button toggleAssessments;
-
-    private CollapsePanel alertsPanel;
-    private LinearLayout alertsList;
-    private Button toggleAlerts;
-
-    private CollapsePanel notesPanel;
-    private LinearLayout notesList;
-    private Button toggleNotes;
 
     private Index<Assessment> assessmentsIndex;
     private Index<Note> notesIndex;
@@ -100,7 +87,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         setupPanel(R.id.toggle_info, R.id.course_info);
         setupPanel(R.id.toggle_assessments, R.id.assessments_list);
         setupPanel(R.id.toggle_alerts, R.id.alerts_list);
-//        setupPanel(R.id.toggle_notes, R.id.notes_list);
+        setupPanel(R.id.toggle_notes, R.id.notes_list);
 
 
     }
@@ -112,6 +99,34 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         datePickerStartDate = findViewById(R.id.date_picker_start_date);
         datePickerEndDate = findViewById(R.id.date_picker_end_date);
         setupPanels();
+        setupLists();
+    }
+
+    public void setupLists() {
+        setupNotes();
+    }
+
+    public void setupNotes() {
+        notesIndex = new Index<Note>(
+                Note.class,
+                this,
+                NoteViewModel.class,
+                R.id.button_add_alert,
+                R.id.course_notes_recycler_view,
+                null,
+                new NoteAdapter()
+        );
+        final EditText addNote = findViewById(R.id.new_note_text);
+        Button addNoteButton = findViewById(R.id.course_add_note);
+        addNoteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newNoteText = addNote.getText().toString();
+                Note n = new Note(newNoteText, thisID);
+                NoteViewModel nvm = new NoteViewModel(getApplication());
+                nvm.insert(n);
+            }
+        });
     }
 
     public void setupAssessments() {

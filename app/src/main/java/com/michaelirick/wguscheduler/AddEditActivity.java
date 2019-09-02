@@ -25,6 +25,7 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
     public abstract void setFields(Intent intent);
     public abstract String getIdExtra(Intent intent);
     public abstract void setupView();
+    public int thisID = 0;
 
 
     @Override
@@ -35,6 +36,7 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
         if (intent.hasExtra("id")) {
             Log.d("test", "edit");
             setTitle("Edit");
+            thisID = intent.getIntExtra("id", 0);
         } else {
             setTitle("Add");
         }
