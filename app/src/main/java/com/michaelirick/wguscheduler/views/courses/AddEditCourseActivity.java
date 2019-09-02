@@ -26,6 +26,7 @@ import com.michaelirick.wguscheduler.ModelSpinner;
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.models.Assessment;
 import com.michaelirick.wguscheduler.models.Course;
+import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.models.Term;
 import com.michaelirick.wguscheduler.views.terms.TermViewModel;
 
@@ -78,7 +79,31 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     private LinearLayout alertsList;
     private Button toggleAlerts;
 
+    private CollapsePanel notesPanel;
+    private LinearLayout notesList;
+    private Button toggleNotes;
+
     private Index<Assessment> assessmentsIndex;
+    private Index<Note> notesIndex;
+
+    void setupPanel(int toggle, int body) {
+        CollapsePanel panel = new CollapsePanel(
+                (Button) findViewById(toggle),
+                (LinearLayout) findViewById(body)
+        );
+        panel.create();
+        panel.toggleView(); // start closed
+
+    }
+
+    void setupPanels() {
+        setupPanel(R.id.toggle_info, R.id.course_info);
+        setupPanel(R.id.toggle_assessments, R.id.assessments_list);
+        setupPanel(R.id.toggle_alerts, R.id.alerts_list);
+//        setupPanel(R.id.toggle_notes, R.id.notes_list);
+
+
+    }
 
     @Override
     public void setupView() {
@@ -86,26 +111,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         editTextTitle = findViewById(R.id.edit_text_title);
         datePickerStartDate = findViewById(R.id.date_picker_start_date);
         datePickerEndDate = findViewById(R.id.date_picker_end_date);
-        toggleInfo = findViewById(R.id.toggle_info);
-        courseInfo = findViewById(R.id.course_info);
-
-
-        infoPanel = new CollapsePanel(toggleInfo, courseInfo);
-        infoPanel.create();
-        infoPanel.toggleView(); // start closed
-
-        toggleAssessments = findViewById(R.id.toggle_assessments);
-        assessmentsList = findViewById(R.id.assessments_list);
-        assessmentsPanel = new CollapsePanel(toggleAssessments, assessmentsList);
-        assessmentsPanel.create();
-        assessmentsPanel.toggleView(); // start closed
-
-        toggleAlerts = findViewById(R.id.toggle_alerts);
-        alertsList = findViewById(R.id.alerts_list);
-        alertsPanel = new CollapsePanel(toggleAlerts, alertsList);
-        alertsPanel.create();
-        alertsPanel.toggleView(); // start closed
-
+        setupPanels();
     }
 
     public void setupAssessments() {

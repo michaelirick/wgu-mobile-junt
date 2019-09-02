@@ -9,6 +9,7 @@ import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.adapters.AssessmentAdapter;
 import com.michaelirick.wguscheduler.models.Assessment;
+import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.views.assessments.AssessmentViewModel;
 
 public class CourseView extends RecyclerView.ViewHolder {
@@ -20,6 +21,7 @@ public class CourseView extends RecyclerView.ViewHolder {
     public TextView textViewMentorPhone;
     public TextView textViewMentorEmail;
     public Index<Assessment> assessmentIndex;
+    public Index<Note> noteIndex;
 
     public CourseView(View itemView) {
         super(itemView);
