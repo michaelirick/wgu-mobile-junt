@@ -28,6 +28,7 @@
         <activity android:name=".views.assessments.AddEditAssessmentActivity" />
         <activity android:name=".views.alerts.AlertIndexActivity"/>
         <activity android:name=".views.alerts.AddEditAlertActivity"/>
+        <activity android:name=".views.notes.AddEditNoteActivity"/>
     </application>
 
 </manifest>

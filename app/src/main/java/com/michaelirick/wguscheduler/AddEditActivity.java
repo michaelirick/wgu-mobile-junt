@@ -26,13 +26,17 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
     public abstract String getIdExtra(Intent intent);
     public abstract void setupView();
     public int thisID = 0;
+    public int filterID = 0;
+    public String filterType = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupView();
         Intent intent = getIntent();
+        Log.d("test", "AddEditActivity#onCreate: " + intent.getExtras().toString());
+        filterID = intent.getIntExtra("filterID", 0);
+        setupView();
         if (intent.hasExtra("id")) {
             Log.d("test", "edit");
             setTitle("Edit");
@@ -75,5 +79,14 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("test", "AddEditActivity#onActivityResult");
+        processResult(requestCode, resultCode, data);
+    }
+
+    public void processResult(int requestCode, int resultCode, Intent data) {
     }
 }

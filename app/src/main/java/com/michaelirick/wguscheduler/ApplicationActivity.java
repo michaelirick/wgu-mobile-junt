@@ -115,7 +115,7 @@ public abstract class ApplicationActivity
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("test", "oof");
+        Log.d("test", "ApplicationActivity#onActivityResult");
         processResult(requestCode, resultCode, data);
     }
 

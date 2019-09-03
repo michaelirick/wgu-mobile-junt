@@ -30,6 +30,7 @@ import com.michaelirick.wguscheduler.models.Assessment;
 import com.michaelirick.wguscheduler.models.Course;
 import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.models.Term;
+import com.michaelirick.wguscheduler.views.notes.AddEditNoteActivity;
 import com.michaelirick.wguscheduler.views.notes.NoteViewModel;
 import com.michaelirick.wguscheduler.views.terms.TermViewModel;
 
@@ -63,7 +64,8 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
             "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_MENTOR_EMAIL";
     public static final String EXTRA_TERM_ID =
             "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_TERM_ID";
-    private static final int COURSES_REQUEST = 1;
+    private static final int ADD_NOTE_REQUEST = 1;
+    private static final int EDIT_NOTE_REQUEST = 2;
 
     private EditText editTextTitle;
     private DatePicker datePickerStartDate;
@@ -111,22 +113,15 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 Note.class,
                 this,
                 NoteViewModel.class,
-                R.id.button_add_alert,
+                R.id.course_add_note,
                 R.id.course_notes_recycler_view,
-                null,
+                AddEditNoteActivity.class,
                 new NoteAdapter()
         );
-        final EditText addNote = findViewById(R.id.new_note_text);
-        Button addNoteButton = findViewById(R.id.course_add_note);
-        addNoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newNoteText = addNote.getText().toString();
-                Note n = new Note(newNoteText, thisID);
-                NoteViewModel nvm = new NoteViewModel(getApplication());
-                nvm.insert(n);
-            }
-        });
+        notesIndex.filterId = thisID;
+        notesIndex.add_request = ADD_NOTE_REQUEST;
+        notesIndex.edit_request = EDIT_NOTE_REQUEST;
+        notesIndex.create();
     }
 
     public void setupAssessments() {
@@ -176,10 +171,21 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         return data;
     }
 
-    public void coursesIndex(View view) {
-        Intent intent = new Intent(AddEditCourseActivity.this, CoursesActivity.class);
-        // intent.putExtra(AddEditCourseActivity.EXTRA_ID, t.getId());
-        startActivityForResult(intent, COURSES_REQUEST);
+    @Override
+    public void processResult(int requestCode, int resultCode, Intent data) {
+        Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode);
+        switch(requestCode) {
+            case ADD_NOTE_REQUEST:
+                Log.d("test", "Add Note");
+                notesIndex.processResult(requestCode, resultCode, data);
+                break;
+            case EDIT_NOTE_REQUEST:
+                Log.d("test", "Edit Note");
+                notesIndex.processResult(requestCode, resultCode, data);
+                break;
+            default:
+                // do nothing
+        }
     }
 
 

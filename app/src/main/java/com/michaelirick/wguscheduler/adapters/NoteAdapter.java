@@ -18,10 +18,11 @@ public class NoteAdapter extends Adapter<Note, NoteView> {
 
     @Override
     public int getItemId() {
-        return R.layout.course_item;
+        return R.layout.course_note_item;
     }
 
     @Override
     public void setFields(NoteView holder, Note current) {
+        holder.textViewText.setText(current.getText());
     }
 }
