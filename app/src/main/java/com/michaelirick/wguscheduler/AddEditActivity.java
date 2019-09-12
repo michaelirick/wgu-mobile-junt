@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 
 import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
 
@@ -88,5 +89,15 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
     }
 
     public void processResult(int requestCode, int resultCode, Intent data) {
+    }
+
+    public void setupPanel(int toggle, int body) {
+        CollapsePanel panel = new CollapsePanel(
+                (Button) findViewById(toggle),
+                (LinearLayout) findViewById(body)
+        );
+        panel.create();
+        panel.toggleView(); // start closed
+
     }
 }

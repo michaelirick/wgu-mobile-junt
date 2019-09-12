@@ -75,16 +75,6 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     private Index<Assessment> assessmentsIndex;
     private Index<Note> notesIndex;
 
-    void setupPanel(int toggle, int body) {
-        CollapsePanel panel = new CollapsePanel(
-                (Button) findViewById(toggle),
-                (LinearLayout) findViewById(body)
-        );
-        panel.create();
-        panel.toggleView(); // start closed
-
-    }
-
     void setupPanels() {
         setupPanel(R.id.toggle_info, R.id.course_info);
         setupPanel(R.id.toggle_assessments, R.id.assessments_list);
