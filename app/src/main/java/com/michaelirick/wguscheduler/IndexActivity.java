@@ -9,16 +9,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.michaelirick.wguscheduler.adapters.TermAdapter;
 import com.michaelirick.wguscheduler.models.Term;
-import com.michaelirick.wguscheduler.views.terms.AddEditTermActivity;
-import com.michaelirick.wguscheduler.views.terms.TermViewModel;
-import com.michaelirick.wguscheduler.views.terms.TermsActivity;
 
 import java.util.List;
 

@@ -21,7 +21,7 @@ import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class AddEditActivity<T> extends AppCompatActivity {
+public abstract class AddEditActivity<T> extends ApplicationActivity{
 
     public abstract void setFields(Intent intent);
     public abstract String getIdExtra(Intent intent);
@@ -82,13 +82,13 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("test", "AddEditActivity#onActivityResult");
-        processResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.d("test", "AddEditActivity#onActivityResult");
+//        processResult(requestCode, resultCode, data);
+//    }
 
-    public void processResult(int requestCode, int resultCode, Intent data) {
+    public void processResult(Request requestCode, int resultCode, Intent data) {
     }
 
     public void setupPanel(int toggle, int body) {

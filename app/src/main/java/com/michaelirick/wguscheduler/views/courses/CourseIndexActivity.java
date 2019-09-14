@@ -33,7 +33,7 @@ public class CourseIndexActivity extends ApplicationActivity {
     }
 
     @Override
-    public void processResult(int requestCode, int resultCode, Intent data) {
+    public void processResult(Request requestCode, int resultCode, Intent data) {
         courseIndex.processResult(requestCode, resultCode, data);
     }
 

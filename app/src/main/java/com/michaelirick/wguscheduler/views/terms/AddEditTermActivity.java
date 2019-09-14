@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.michaelirick.wguscheduler.AddEditActivity;
+import com.michaelirick.wguscheduler.ApplicationActivity;
 import com.michaelirick.wguscheduler.Converters;
 import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.R;
@@ -25,16 +26,6 @@ import java.util.Date;
 import static com.michaelirick.wguscheduler.Converters.setDatePickerValue;
 
 public class AddEditTermActivity extends AddEditActivity<Term> {
-    public static final String EXTRA_ID =
-            "com.michaelirick.wguscheduler.views.terms.EXTRA_ID";
-    public static final String EXTRA_TITLE =
-            "com.michaelirick.wguscheduler.views.terms.EXTRA_TITLE";
-    public static final String EXTRA_START_DATE =
-            "com.michaelirick.wguscheduler.views.terms.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE =
-            "com.michaelirick.wguscheduler.views.terms.EXTRA_END_DATE";
-    private static final int ADD_COURSE_REQUEST = 1;
-    private static final int EDIT_COURSE_REQUEST = 2;
 
     private EditText editTextTitle;
     private DatePicker datePickerStartDate;
@@ -51,8 +42,8 @@ public class AddEditTermActivity extends AddEditActivity<Term> {
                 new CourseAdapter()
         );
         courseIndex.filterId = thisID;
-        courseIndex.add_request = ADD_COURSE_REQUEST;
-        courseIndex.edit_request = EDIT_COURSE_REQUEST;
+        courseIndex.add_request = Request.ADD_COURSE;
+        courseIndex.edit_request = Request.EDIT_COURSE;
         courseIndex.create();
     }
 
@@ -64,27 +55,27 @@ public class AddEditTermActivity extends AddEditActivity<Term> {
         datePickerEndDate = findViewById(R.id.date_picker_end_date);
         setupPanel(R.id.toggle_info, R.id.term_info);
         setupPanel(R.id.toggle_courses, R.id.courses_list);
-        setupCourses();
+//        setupCourses();
     }
 
     @Override
     public void setFields(Intent intent) {
-        editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-        setDatePickerValue(datePickerStartDate, intent.getLongExtra(EXTRA_START_DATE, 0));
-        setDatePickerValue(datePickerEndDate, intent.getLongExtra(EXTRA_END_DATE, 0));
+        editTextTitle.setText(intent.getStringExtra("title"));
+        setDatePickerValue(datePickerStartDate, (Date) intent.getSerializableExtra("startDate"));
+        setDatePickerValue(datePickerEndDate, (Date) intent.getSerializableExtra("endDate"));
     }
 
     @Override
     public String getIdExtra(Intent intent) {
-        return EXTRA_ID;
+        return "id";
     }
 
     @Override
     public Intent dataFromFields() {
         Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE, editTextTitle.getText().toString());
-        data.putExtra(EXTRA_START_DATE, Converters.getDateFromDatePicker(datePickerStartDate).getTime());
-        data.putExtra(EXTRA_END_DATE, Converters.getDateFromDatePicker(datePickerEndDate));
+        data.putExtra("title", editTextTitle.getText().toString());
+        data.putExtra("startDate", Converters.getDateFromDatePicker(datePickerStartDate));
+        data.putExtra("endDate", Converters.getDateFromDatePicker(datePickerEndDate));
         return data;
     }
 }

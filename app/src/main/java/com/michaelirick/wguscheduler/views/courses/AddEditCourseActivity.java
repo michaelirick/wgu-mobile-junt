@@ -109,8 +109,8 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 new NoteAdapter()
         );
         notesIndex.filterId = thisID;
-        notesIndex.add_request = ADD_NOTE_REQUEST;
-        notesIndex.edit_request = EDIT_NOTE_REQUEST;
+        notesIndex.add_request = Request.ADD_NOTE;
+        notesIndex.edit_request = Request.EDIT_NOTE;
         notesIndex.create();
     }
 
@@ -162,14 +162,14 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     }
 
     @Override
-    public void processResult(int requestCode, int resultCode, Intent data) {
+    public void processResult(Request requestCode, int resultCode, Intent data) {
         Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode);
         switch(requestCode) {
-            case ADD_NOTE_REQUEST:
+            case ADD_NOTE:
                 Log.d("test", "Add Note");
                 notesIndex.processResult(requestCode, resultCode, data);
                 break;
-            case EDIT_NOTE_REQUEST:
+            case EDIT_NOTE:
                 Log.d("test", "Edit Note");
                 notesIndex.processResult(requestCode, resultCode, data);
                 break;
