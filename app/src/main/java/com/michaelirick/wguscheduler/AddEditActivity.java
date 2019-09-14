@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 
 import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
 
@@ -25,16 +26,22 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
     public abstract void setFields(Intent intent);
     public abstract String getIdExtra(Intent intent);
     public abstract void setupView();
+    public int thisID = 0;
+    public int filterID = 0;
+    public String filterType = "";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupView();
         Intent intent = getIntent();
+        Log.d("test", "AddEditActivity#onCreate: " + intent.getExtras().toString());
+        filterID = intent.getIntExtra("filterID", 0);
+        setupView();
         if (intent.hasExtra("id")) {
             Log.d("test", "edit");
             setTitle("Edit");
+            thisID = intent.getIntExtra("id", 0);
         } else {
             setTitle("Add");
         }
@@ -73,5 +80,24 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("test", "AddEditActivity#onActivityResult");
+        processResult(requestCode, resultCode, data);
+    }
+
+    public void processResult(int requestCode, int resultCode, Intent data) {
+    }
+
+    public void setupPanel(int toggle, int body) {
+        CollapsePanel panel = new CollapsePanel(
+                (Button) findViewById(toggle),
+                (LinearLayout) findViewById(body)
+        );
+        panel.create();
+        panel.toggleView(); // start closed
+
     }
 }

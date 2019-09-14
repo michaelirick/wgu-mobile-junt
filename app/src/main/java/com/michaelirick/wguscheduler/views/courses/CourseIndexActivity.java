@@ -1,5 +1,6 @@
 package com.michaelirick.wguscheduler.views.courses;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.michaelirick.wguscheduler.ApplicationActivity;
@@ -30,4 +31,10 @@ public class CourseIndexActivity extends ApplicationActivity {
         courseIndex.addEditClass = AddEditCourseActivity.class;
         courseIndex.create();
     }
+
+    @Override
+    public void processResult(int requestCode, int resultCode, Intent data) {
+        courseIndex.processResult(requestCode, resultCode, data);
+    }
+
 }

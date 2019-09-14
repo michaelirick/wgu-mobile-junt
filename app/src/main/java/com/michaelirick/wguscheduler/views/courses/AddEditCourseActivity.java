@@ -24,9 +24,14 @@ import com.michaelirick.wguscheduler.Converters;
 import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.ModelSpinner;
 import com.michaelirick.wguscheduler.R;
+import com.michaelirick.wguscheduler.ViewModel;
+import com.michaelirick.wguscheduler.adapters.NoteAdapter;
 import com.michaelirick.wguscheduler.models.Assessment;
 import com.michaelirick.wguscheduler.models.Course;
+import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.models.Term;
+import com.michaelirick.wguscheduler.views.notes.AddEditNoteActivity;
+import com.michaelirick.wguscheduler.views.notes.NoteViewModel;
 import com.michaelirick.wguscheduler.views.terms.TermViewModel;
 
 
@@ -59,26 +64,25 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
             "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_MENTOR_EMAIL";
     public static final String EXTRA_TERM_ID =
             "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_TERM_ID";
-    private static final int COURSES_REQUEST = 1;
+    private static final int ADD_NOTE_REQUEST = 1;
+    private static final int EDIT_NOTE_REQUEST = 2;
 
     private EditText editTextTitle;
     private DatePicker datePickerStartDate;
     private DatePicker datePickerEndDate;
     ModelSpinner<Term> selectTerm;
-    private Button toggleInfo;
-    private Button getToggleAssessments;
-    private LinearLayout courseInfo;
-    private CollapsePanel infoPanel;
-
-    private CollapsePanel assessmentsPanel;
-    private LinearLayout assessmentsList;
-    private Button toggleAssessments;
-
-    private CollapsePanel alertsPanel;
-    private LinearLayout alertsList;
-    private Button toggleAlerts;
 
     private Index<Assessment> assessmentsIndex;
+    private Index<Note> notesIndex;
+
+    void setupPanels() {
+        setupPanel(R.id.toggle_info, R.id.course_info);
+        setupPanel(R.id.toggle_assessments, R.id.assessments_list);
+        setupPanel(R.id.toggle_alerts, R.id.alerts_list);
+        setupPanel(R.id.toggle_notes, R.id.notes_list);
+
+
+    }
 
     @Override
     public void setupView() {
@@ -86,26 +90,28 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         editTextTitle = findViewById(R.id.edit_text_title);
         datePickerStartDate = findViewById(R.id.date_picker_start_date);
         datePickerEndDate = findViewById(R.id.date_picker_end_date);
-        toggleInfo = findViewById(R.id.toggle_info);
-        courseInfo = findViewById(R.id.course_info);
+        setupPanels();
+        setupLists();
+    }
 
+    public void setupLists() {
+        setupNotes();
+    }
 
-        infoPanel = new CollapsePanel(toggleInfo, courseInfo);
-        infoPanel.create();
-        infoPanel.toggleView(); // start closed
-
-        toggleAssessments = findViewById(R.id.toggle_assessments);
-        assessmentsList = findViewById(R.id.assessments_list);
-        assessmentsPanel = new CollapsePanel(toggleAssessments, assessmentsList);
-        assessmentsPanel.create();
-        assessmentsPanel.toggleView(); // start closed
-
-        toggleAlerts = findViewById(R.id.toggle_alerts);
-        alertsList = findViewById(R.id.alerts_list);
-        alertsPanel = new CollapsePanel(toggleAlerts, alertsList);
-        alertsPanel.create();
-        alertsPanel.toggleView(); // start closed
-
+    public void setupNotes() {
+        notesIndex = new Index<Note>(
+                Note.class,
+                this,
+                NoteViewModel.class,
+                R.id.course_add_note,
+                R.id.course_notes_recycler_view,
+                AddEditNoteActivity.class,
+                new NoteAdapter()
+        );
+        notesIndex.filterId = thisID;
+        notesIndex.add_request = ADD_NOTE_REQUEST;
+        notesIndex.edit_request = EDIT_NOTE_REQUEST;
+        notesIndex.create();
     }
 
     public void setupAssessments() {
@@ -155,10 +161,21 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         return data;
     }
 
-    public void coursesIndex(View view) {
-        Intent intent = new Intent(AddEditCourseActivity.this, CoursesActivity.class);
-        // intent.putExtra(AddEditCourseActivity.EXTRA_ID, t.getId());
-        startActivityForResult(intent, COURSES_REQUEST);
+    @Override
+    public void processResult(int requestCode, int resultCode, Intent data) {
+        Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode);
+        switch(requestCode) {
+            case ADD_NOTE_REQUEST:
+                Log.d("test", "Add Note");
+                notesIndex.processResult(requestCode, resultCode, data);
+                break;
+            case EDIT_NOTE_REQUEST:
+                Log.d("test", "Edit Note");
+                notesIndex.processResult(requestCode, resultCode, data);
+                break;
+            default:
+                // do nothing
+        }
     }
 
 

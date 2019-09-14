@@ -23,8 +23,6 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 
 public class Index<T extends Model> {
-    private static final int ADD_REQUEST = 1;
-    private static final int EDIT_REQUEST = 2;
     public Class<T> klass;
     public FragmentActivity activity;
     public ViewModel vm;
@@ -35,6 +33,8 @@ public class Index<T extends Model> {
     public Class viewModelClass;
     public Class addEditClass;
     public int filterId = -1;
+    public int add_request = 1;
+    public int edit_request = 2;
 
     public Index() {
 
@@ -57,7 +57,8 @@ public class Index<T extends Model> {
                 Intent intent = Model.createIntent(
                         activity, addEditClass, (T) o
                 );
-                activity.startActivityForResult(intent, EDIT_REQUEST);
+                intent.putExtra("filterID", filterId);
+                activity.startActivityForResult(intent, edit_request);
             }
         });
     }
@@ -85,6 +86,8 @@ public class Index<T extends Model> {
     }
 
     public void setAddButton() {
+        if(addButtonId == 0)
+            return;
         FloatingActionButton buttonAdd = activity.findViewById(addButtonId);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +95,9 @@ public class Index<T extends Model> {
                 Intent intent = Model.createIntent(
                         activity, addEditClass, null
                 );
-                activity.startActivityForResult(intent, ADD_REQUEST);
+                intent.putExtra("filterID", filterId);
+                Log.d("test", "Index#setAddButton: " + intent.getExtras().toString());
+                activity.startActivityForResult(intent, add_request);
             }
         });
     }
@@ -111,7 +116,7 @@ public class Index<T extends Model> {
         vm.allFor(filterId).observe(activity, new Observer<List<T>>() {
             @Override
             public void onChanged(@Nullable List<T> ts) {
-                Log.d("test", "Course list changed");
+                Log.d("test", klass.getName() + " list changed");
                 adapter.set(ts);
             }
         });
@@ -123,16 +128,17 @@ public class Index<T extends Model> {
         setOnClick();
     }
 
-    public void processResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == ADD_REQUEST && resultCode == RESULT_OK) {
+
+    public void processResult(int requestCode, int resultCode, Intent data) {
+        Log.d("test", "Index<" + klass.getName() + ">#processResult: " + requestCode + ", " + resultCode );
+        if (requestCode == add_request && resultCode == RESULT_OK) {
             T t = newElement(data);
             vm.insert(t);
             //Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-        } else if (requestCode == EDIT_REQUEST
+        } else if (requestCode == edit_request
                 && resultCode == RESULT_OK) {
             int id = data.getIntExtra("id", -1);
-            Log.d("test", "processResult(): " + data.getExtras().toString());
             if (id == -1) {
                 Log.d("test", "id == -1, cannot update");
                 //Toast.makeText(this, "Cannot be updated", Toast.LENGTH_SHORT).show();
