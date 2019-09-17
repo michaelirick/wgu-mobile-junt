@@ -3,6 +3,7 @@ package com.michaelirick.wguscheduler.views.terms;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -55,7 +56,7 @@ public class AddEditTermActivity extends AddEditActivity<Term> {
         datePickerEndDate = findViewById(R.id.date_picker_end_date);
         setupPanel(R.id.toggle_info, R.id.term_info);
         setupPanel(R.id.toggle_courses, R.id.courses_list);
-//        setupCourses();
+        setupCourses();
     }
 
     @Override
@@ -77,5 +78,11 @@ public class AddEditTermActivity extends AddEditActivity<Term> {
         data.putExtra("startDate", Converters.getDateFromDatePicker(datePickerStartDate));
         data.putExtra("endDate", Converters.getDateFromDatePicker(datePickerEndDate));
         return data;
+    }
+
+    @Override
+    public void processResult(ApplicationActivity.Request requestCode, int resultCode, Intent data) {
+        debug("processResult", "" + data);
+        courseIndex.processResult(requestCode, resultCode, data);
     }
 }

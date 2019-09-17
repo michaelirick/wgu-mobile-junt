@@ -2,6 +2,8 @@ package com.michaelirick.wguscheduler;
 
 import android.app.ActionBar;
 import android.arch.persistence.room.TypeConverter;
+import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -40,6 +42,7 @@ public class Converters {
     }
 
     public static void setDateText(TextView view, Date date) {
+        Log.d("test", "" + date);
         view.setText(new SimpleDateFormat("dd/MM/yyyy").format(date));
     }
 

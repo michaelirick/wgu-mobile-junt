@@ -140,7 +140,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 this,
                 (Spinner) findViewById(R.id.select_term_ids),
                 new TermViewModel(getApplication()),
-                intent.getIntExtra("termID", 0)
+                intent.getIntExtra("termID", filterID)
         );
     }
 

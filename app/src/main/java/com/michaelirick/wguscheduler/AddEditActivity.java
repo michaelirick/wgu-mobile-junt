@@ -35,13 +35,13 @@ public abstract class AddEditActivity<T> extends ApplicationActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        Log.d("test", "AddEditActivity#onCreate: " + intent.getExtras().toString());
+        debug("#onCreate", "" + intent.toUri(0));
         filterID = intent.getIntExtra("filterID", 0);
+        thisID = intent.getIntExtra("id", 0);
+        debug("#onCreate", "thisID: " + thisID);
         setupView();
-        if (intent.hasExtra("id")) {
-            Log.d("test", "edit");
+        if (thisID != 0) {
             setTitle("Edit");
-            thisID = intent.getIntExtra("id", 0);
         } else {
             setTitle("Add");
         }

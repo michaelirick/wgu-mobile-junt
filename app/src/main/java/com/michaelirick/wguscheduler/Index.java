@@ -113,10 +113,11 @@ public class Index<T extends Model> {
 
     public void updateList() {
         vm = (ViewModel) ViewModelProviders.of(activity).get(viewModelClass);
+        Log.d("test", getClass().getName() + "<" + klass.getName() + ">" + "#updateList(" + filterId + ")");
         vm.allFor(filterId).observe(activity, new Observer<List<T>>() {
             @Override
             public void onChanged(@Nullable List<T> ts) {
-                Log.d("test", klass.getName() + " list changed");
+                Log.d("test", klass.getName() + " list changed: " + ts);
                 adapter.set(ts);
             }
         });

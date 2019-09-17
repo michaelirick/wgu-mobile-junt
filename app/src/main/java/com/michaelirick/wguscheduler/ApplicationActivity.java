@@ -78,8 +78,7 @@ public abstract class ApplicationActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if(drawer == null) return;
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -139,6 +138,11 @@ public abstract class ApplicationActivity
     }
 
     public void processResult(Request requestCode, int resultCode, Intent data) {
+        Log.d("test", "processResult not implemented");
+    }
+
+    public void debug(String method, String data) {
+        Log.d("test", this.getClass().getName() + method + ": " + data);
     }
 }
 

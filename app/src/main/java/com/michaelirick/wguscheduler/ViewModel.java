@@ -40,6 +40,7 @@ public class ViewModel<T extends Model> extends AndroidViewModel {
     }
 
     public LiveData<List<T>> allFor(int i) {
+        Log.d("test", getClass().getName() + "#allFor: " + i);
         return repository.allFor(i);
     }
 

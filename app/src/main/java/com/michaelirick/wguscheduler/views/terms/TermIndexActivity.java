@@ -1,7 +1,9 @@
 package com.michaelirick.wguscheduler.views.terms;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.michaelirick.wguscheduler.ApplicationActivity;
 import com.michaelirick.wguscheduler.Index;
@@ -29,5 +31,12 @@ public class TermIndexActivity extends ApplicationActivity {
         index.add_request = Request.ADD_TERM;
         index.edit_request = Request.EDIT_TERM;
         index.create();
+    }
+
+
+    @Override
+    public void processResult(Request requestCode, int resultCode, Intent data) {
+        Log.d("test", "TermIndexActivity#processResult: " + data);
+        index.processResult(requestCode, resultCode, data);
     }
 }

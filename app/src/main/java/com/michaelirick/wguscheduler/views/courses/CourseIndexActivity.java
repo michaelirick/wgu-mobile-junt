@@ -29,6 +29,8 @@ public class CourseIndexActivity extends ApplicationActivity {
         courseIndex.addButtonId = R.id.button_add_course;
         courseIndex.recyclerViewId = R.id.courses_recycler_view;
         courseIndex.addEditClass = AddEditCourseActivity.class;
+        courseIndex.add_request = Request.ADD_COURSE;
+        courseIndex.edit_request = Request.EDIT_COURSE;
         courseIndex.create();
     }
 
