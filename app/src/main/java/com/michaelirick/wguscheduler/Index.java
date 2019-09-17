@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import com.michaelirick.wguscheduler.ApplicationActivity;
 
 import com.michaelirick.wguscheduler.models.Term;
 
@@ -33,8 +33,8 @@ public class Index<T extends Model> {
     public Class viewModelClass;
     public Class addEditClass;
     public int filterId = -1;
-    public int add_request = 1;
-    public int edit_request = 2;
+    public ApplicationActivity.Request add_request;
+    public ApplicationActivity.Request edit_request;
 
     public Index() {
 
@@ -58,7 +58,7 @@ public class Index<T extends Model> {
                         activity, addEditClass, (T) o
                 );
                 intent.putExtra("filterID", filterId);
-                activity.startActivityForResult(intent, edit_request);
+                activity.startActivityForResult(intent, edit_request.ordinal());
             }
         });
     }
@@ -97,7 +97,7 @@ public class Index<T extends Model> {
                 );
                 intent.putExtra("filterID", filterId);
                 Log.d("test", "Index#setAddButton: " + intent.getExtras().toString());
-                activity.startActivityForResult(intent, add_request);
+                activity.startActivityForResult(intent, add_request.ordinal());
             }
         });
     }
@@ -113,10 +113,11 @@ public class Index<T extends Model> {
 
     public void updateList() {
         vm = (ViewModel) ViewModelProviders.of(activity).get(viewModelClass);
+        Log.d("test", getClass().getName() + "<" + klass.getName() + ">" + "#updateList(" + filterId + ")");
         vm.allFor(filterId).observe(activity, new Observer<List<T>>() {
             @Override
             public void onChanged(@Nullable List<T> ts) {
-                Log.d("test", klass.getName() + " list changed");
+                Log.d("test", klass.getName() + " list changed: " + ts);
                 adapter.set(ts);
             }
         });
@@ -130,7 +131,7 @@ public class Index<T extends Model> {
 
 
 
-    public void processResult(int requestCode, int resultCode, Intent data) {
+    public void processResult(ApplicationActivity.Request requestCode, int resultCode, Intent data) {
         Log.d("test", "Index<" + klass.getName() + ">#processResult: " + requestCode + ", " + resultCode );
         if (requestCode == add_request && resultCode == RESULT_OK) {
             T t = newElement(data);

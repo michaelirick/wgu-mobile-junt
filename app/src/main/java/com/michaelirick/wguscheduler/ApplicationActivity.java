@@ -14,17 +14,29 @@ import android.view.MenuItem;
 import com.michaelirick.wguscheduler.views.alerts.AlertIndexActivity;
 import com.michaelirick.wguscheduler.views.assessments.AssessmentIndexActivity;
 import com.michaelirick.wguscheduler.views.courses.CourseIndexActivity;
-import com.michaelirick.wguscheduler.views.courses.CoursesActivity;
 import com.michaelirick.wguscheduler.views.terms.TermIndexActivity;
-import com.michaelirick.wguscheduler.views.terms.TermsActivity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class ApplicationActivity
     extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int TERMS_REQUEST = 1;
-    private static final int COURSES_REQUEST = 2;
-    private static final int ASSESSMENTS_REQUEST = 3;
-    private static final int ALERTS_REQUEST = 4;
+
+    public enum Request {
+        COURSES, ADD_COURSE, EDIT_COURSE,
+        TERMS, ADD_TERM, EDIT_TERM,
+        ALERTS, ADD_ALERTS, EDIT_ALERTS,
+        ASSESSMENTS, ADD_ASSESSMENT, EDIT_ASSESSMENT,
+        NOTES, ADD_NOTE, EDIT_NOTE
+    };
+
+    private List<RequestHandler> requestMappings;
+
+
+
 
     public void setMenu() {
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -48,12 +60,25 @@ public abstract class ApplicationActivity
         if(navigationView != null)
             navigationView.setNavigationItemSelectedListener(this);
 
+        setRequestMappings();
+    }
+
+    private void setRequestMappings() {
+        requestMappings = new ArrayList<>(
+                Arrays.asList(
+                        new RequestHandler(this, R.id.nav_terms, TermIndexActivity.class, Request.TERMS),
+                        new RequestHandler(this, R.id.nav_courses, CourseIndexActivity.class, Request.COURSES),
+                        new RequestHandler(this, R.id.nav_assessments, AssessmentIndexActivity.class, Request.ASSESSMENTS),
+                        new RequestHandler(this, R.id.nav_alerts, AlertIndexActivity.class, Request.ALERTS)
+                )
+        );
+
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -86,40 +111,38 @@ public abstract class ApplicationActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        final int id = item.getItemId();
+        requestMappings.forEach(new Consumer<RequestHandler>() {
+            @Override
+            public void accept(RequestHandler requestHandler) {
+                requestHandler.check(id);
+            }
+        });
 
-
-        if (id == R.id.nav_terms) {
-            startView(TermIndexActivity.class, TERMS_REQUEST);
-        }
-        if (id == R.id.nav_courses) {
-            startView(CourseIndexActivity.class, COURSES_REQUEST);
-        }
-        if(id == R.id.nav_assessments) {
-            startView(AssessmentIndexActivity.class, ASSESSMENTS_REQUEST);
-        }
-        if(id == R.id.nav_alerts) {
-            startView(AlertIndexActivity.class, ALERTS_REQUEST);
-        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void startView(Class klass, int request) {
+    public void startView(Class klass, Request request) {
         startActivityForResult(
                 new Intent(this, klass),
-                request
+                request.ordinal()
         );
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("test", "ApplicationActivity#onActivityResult");
-        processResult(requestCode, resultCode, data);
+        processResult(Request.values()[requestCode], resultCode, data);
     }
 
-    public void processResult(int requestCode, int resultCode, Intent data) {
+    public void processResult(Request requestCode, int resultCode, Intent data) {
+        Log.d("test", "processResult not implemented");
+    }
+
+    public void debug(String method, String data) {
+        Log.d("test", this.getClass().getName() + method + ": " + data);
     }
 }
 

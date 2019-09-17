@@ -21,7 +21,7 @@ import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class AddEditActivity<T> extends AppCompatActivity {
+public abstract class AddEditActivity<T> extends ApplicationActivity{
 
     public abstract void setFields(Intent intent);
     public abstract String getIdExtra(Intent intent);
@@ -35,13 +35,13 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        Log.d("test", "AddEditActivity#onCreate: " + intent.getExtras().toString());
+        debug("#onCreate", "" + intent.toUri(0));
         filterID = intent.getIntExtra("filterID", 0);
+        thisID = intent.getIntExtra("id", 0);
+        debug("#onCreate", "thisID: " + thisID);
         setupView();
-        if (intent.hasExtra("id")) {
-            Log.d("test", "edit");
+        if (thisID != 0) {
             setTitle("Edit");
-            thisID = intent.getIntExtra("id", 0);
         } else {
             setTitle("Add");
         }
@@ -82,13 +82,13 @@ public abstract class AddEditActivity<T> extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("test", "AddEditActivity#onActivityResult");
-        processResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.d("test", "AddEditActivity#onActivityResult");
+//        processResult(requestCode, resultCode, data);
+//    }
 
-    public void processResult(int requestCode, int resultCode, Intent data) {
+    public void processResult(Request requestCode, int resultCode, Intent data) {
     }
 
     public void setupPanel(int toggle, int body) {
