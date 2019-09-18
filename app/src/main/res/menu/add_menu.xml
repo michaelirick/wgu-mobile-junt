@@ -4,6 +4,11 @@
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
     <item
+        android:id="@+id/delete"
+        android:icon="@drawable/ic_close"
+        android:title="Save"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/save"
         android:icon="@drawable/ic_save"
         android:title="Save"

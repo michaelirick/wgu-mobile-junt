@@ -63,6 +63,14 @@ public abstract class AddEditActivity<T> extends ApplicationActivity{
         finish();
     }
 
+    public void delete() {
+        Intent data = getIntent();
+        data.putExtra("delete", true);
+        debug("#delete", data.toUri(0));
+        setResult(RESULT_OK, data);
+        finish();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,6 +84,9 @@ public abstract class AddEditActivity<T> extends ApplicationActivity{
         switch (item.getItemId()) {
             case R.id.save:
                 save();
+                return true;
+            case R.id.delete:
+                delete();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
