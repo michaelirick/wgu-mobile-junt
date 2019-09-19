@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
+import com.michaelirick.wguscheduler.models.Alert;
 import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
 
 import java.util.Calendar;
@@ -69,6 +70,18 @@ public abstract class AddEditActivity<T> extends ApplicationActivity{
         debug("#delete", data.toUri(0));
         setResult(RESULT_OK, data);
         finish();
+    }
+
+    public void addAlertButton(final ApplicationActivity app, int id, final String title, final String message, final Date date) {
+        Button alertButton =findViewById(id);
+        alertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Alert alert = new Alert(title, message, date);
+                alert.create(app, ApplicationReceiver.class);
+            }
+
+        });
     }
 
 

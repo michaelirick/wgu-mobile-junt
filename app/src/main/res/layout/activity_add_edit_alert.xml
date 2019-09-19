@@ -42,8 +42,24 @@
                 android:orientation="vertical"
                 android:id="@+id/info"
                 >
-
-
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_text_title"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_text_description"/>
+                <DatePicker
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/datepicker"
+                    android:datePickerMode="spinner"></DatePicker>
+                <TimePicker
+                    android:id="@+id/timepicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout

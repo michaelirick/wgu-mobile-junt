@@ -19,17 +19,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.michaelirick.wguscheduler.AddEditActivity;
+import com.michaelirick.wguscheduler.ApplicationReceiver;
 import com.michaelirick.wguscheduler.CollapsePanel;
 import com.michaelirick.wguscheduler.Converters;
 import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.ModelSpinner;
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.ViewModel;
+import com.michaelirick.wguscheduler.adapters.AlertAdapter;
 import com.michaelirick.wguscheduler.adapters.NoteAdapter;
+import com.michaelirick.wguscheduler.models.Alert;
 import com.michaelirick.wguscheduler.models.Assessment;
 import com.michaelirick.wguscheduler.models.Course;
 import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.models.Term;
+import com.michaelirick.wguscheduler.views.alerts.AddEditAlertActivity;
+import com.michaelirick.wguscheduler.views.alerts.AlertViewModel;
 import com.michaelirick.wguscheduler.views.notes.AddEditNoteActivity;
 import com.michaelirick.wguscheduler.views.notes.NoteViewModel;
 import com.michaelirick.wguscheduler.views.terms.TermViewModel;
@@ -75,6 +80,9 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     private Index<Assessment> assessmentsIndex;
     private Index<Note> notesIndex;
 
+    private Button buttonStartDateAlert;
+    private Index<Alert> alertsIndex;
+
     void setupPanels() {
         setupPanel(R.id.toggle_info, R.id.course_info);
         setupPanel(R.id.toggle_assessments, R.id.assessments_list);
@@ -96,6 +104,24 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
 
     public void setupLists() {
         setupNotes();
+        setupAlerts();
+    }
+
+    private void setupAlerts() {
+        alertsIndex = new Index<Alert>(
+                Alert.class,
+                this,
+                AlertViewModel.class,
+                R.id.course_add_alert,
+                R.id.course_alerts_recycler_view,
+                AddEditAlertActivity.class,
+                new AlertAdapter()
+        );
+        alertsIndex.filterId = thisID;
+        alertsIndex.add_request = Request.ADD_ALERTS;
+        alertsIndex.edit_request = Request.EDIT_ALERTS;
+        alertsIndex.create();
+
     }
 
     public void setupNotes() {
@@ -142,6 +168,13 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 new TermViewModel(getApplication()),
                 intent.getIntExtra("termID", filterID)
         );
+//        addAlertButton(
+//                this,
+//                R.id.start_date_alert,
+//                intent.getStringExtra("title") + " Start Date",
+//                "Your course " + intent.getStringExtra("title") + " is starting.",
+//                (Date) intent.getSerializableExtra("startDate")
+//        );
     }
 
     @Override
@@ -172,6 +205,10 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
             case EDIT_NOTE:
                 Log.d("test", "Edit Note");
                 notesIndex.processResult(requestCode, resultCode, data);
+                break;
+            case ADD_ALERTS:
+                Alert a = alertsIndex.processResult(requestCode, resultCode, data);
+                a.create(this, ApplicationReceiver.class);
                 break;
             default:
                 // do nothing

@@ -17,11 +17,16 @@ public class AlertAdapter extends Adapter<Alert, AlertView> {
 
     @Override
     public int getItemId() {
-        return R.layout.course_item;
+        return R.layout.alert_item;
     }
 
     @Override
     public void setFields(AlertView holder, Alert current) {
+        holder.textViewTitle.setText(current.getTitle());
+        holder.textViewDescription.setText(current.getDescription());
+        holder.textViewDate.setText(
+                current.getDate().toString()
+        );
 //        holder.textViewTitle.setText(current.getTitle());
 //        holder.textViewStatus.setText(current.getStatus());
 //        holder.textViewMentorName.setText(current.getMentorName());

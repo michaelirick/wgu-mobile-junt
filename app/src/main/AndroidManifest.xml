@@ -28,6 +28,10 @@
         <activity android:name=".views.alerts.AlertIndexActivity"/>
         <activity android:name=".views.alerts.AddEditAlertActivity"/>
         <activity android:name=".views.notes.AddEditNoteActivity"/>
+        <receiver
+            android:name=".ApplicationReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

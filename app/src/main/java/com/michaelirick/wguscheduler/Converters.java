@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +29,15 @@ public class Converters {
 
     public static Long now() {
         return System.currentTimeMillis() / 1000L;
+    }
+
+    public static Long timeFromTimePicker(TimePicker timePicker) {
+        int h = timePicker.getHour();
+        int m = timePicker.getMinute();
+        Long t = new Long(0);
+        t += h * 60 * 60 * 1000; // hours
+        t += m * 60 * 1000; // minutes
+        return t;
     }
 
     public static java.util.Date getDateFromDatePicker(DatePicker datePicker){

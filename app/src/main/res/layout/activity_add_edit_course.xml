@@ -158,6 +158,20 @@
                 android:orientation="vertical"
                 android:id="@+id/alerts_list"
                 >
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/course_alerts_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/alert_item" />
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/course_add_alert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="32dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_add" />
 
             </LinearLayout>
         </LinearLayout>
@@ -198,6 +212,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/course_notes_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/course_note_item" />
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/course_add_note"
                         android:layout_width="wrap_content"
@@ -207,11 +226,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_add" />
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/course_notes_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:listitem="@layout/course_note_item" />
+
                 </LinearLayout>
 
 

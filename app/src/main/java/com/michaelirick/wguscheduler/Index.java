@@ -129,31 +129,32 @@ public class Index<T extends Model> {
         setOnClick();
     }
 
-
-
-    public void processResult(ApplicationActivity.Request requestCode, int resultCode, Intent data) {
+    public T processResult(ApplicationActivity.Request requestCode, int resultCode, Intent data) {
         Log.d("test", "Index<" + klass.getName() + ">#processResult: " + requestCode + ", " + resultCode );
+        T r = null;
         if (requestCode == add_request && resultCode == RESULT_OK) {
             T t = newElement(data);
             vm.insert(t);
             //Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            r = t;
         } else if (requestCode == edit_request
                 && resultCode == RESULT_OK) {
             int id = data.getIntExtra("id", -1);
             if (id == -1) {
                 Log.d("test", "id == -1, cannot update");
                 //Toast.makeText(this, "Cannot be updated", Toast.LENGTH_SHORT).show();
-                return;
+                return null;
             }
 
             T t = newElement(data);
 //            t.setId(id);
             vm.update(t);
-
+            r = t;
             //Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
         } else {
             //Toast.makeText(this, "Not saved", Toast.LENGTH_SHORT).show();
         }
         updateList();
+        return r;
     }
 }
