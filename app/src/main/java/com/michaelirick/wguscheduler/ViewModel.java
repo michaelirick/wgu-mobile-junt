@@ -39,9 +39,9 @@ public class ViewModel<T extends Model> extends AndroidViewModel {
         return cachedList;
     }
 
-    public LiveData<List<T>> allFor(int i) {
-        Log.d("test", getClass().getName() + "#allFor: " + i);
-        return repository.allFor(i);
+    public LiveData<List<T>> allFor(int i, String filterType) {
+        Log.d("test", getClass().getName() + "#allFor: " + i + "::" + filterType);
+        return repository.allFor(i, filterType);
     }
 
     public ArrayList<T> allForSelect() {

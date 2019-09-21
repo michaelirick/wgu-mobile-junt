@@ -9,6 +9,8 @@ import com.michaelirick.wguscheduler.models.Alert;
 import com.michaelirick.wguscheduler.views.alerts.AlertView;
 import com.michaelirick.wguscheduler.views.assessments.AssessmentView;
 
+import static com.michaelirick.wguscheduler.Converters.setDateText;
+
 public class AlertAdapter extends Adapter<Alert, AlertView> {
     @Override
     public AlertView createView(View itemView) {
@@ -24,9 +26,7 @@ public class AlertAdapter extends Adapter<Alert, AlertView> {
     public void setFields(AlertView holder, Alert current) {
         holder.textViewTitle.setText(current.getTitle());
         holder.textViewDescription.setText(current.getDescription());
-        holder.textViewDate.setText(
-                current.getDate().toString()
-        );
+        setDateText(holder.textViewDate, current.getDate());
 //        holder.textViewTitle.setText(current.getTitle());
 //        holder.textViewStatus.setText(current.getStatus());
 //        holder.textViewMentorName.setText(current.getMentorName());

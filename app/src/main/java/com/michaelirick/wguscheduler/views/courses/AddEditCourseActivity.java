@@ -118,6 +118,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 new AlertAdapter()
         );
         alertsIndex.filterId = thisID;
+        alertsIndex.filterType = "Course";
         alertsIndex.add_request = Request.ADD_ALERTS;
         alertsIndex.edit_request = Request.EDIT_ALERTS;
         alertsIndex.create();

@@ -19,6 +19,6 @@ public interface NoteDao extends WGUDao<Note> {
     LiveData<List<Note>> all ();
 
     @Override
-    @Query("select * from notes where id = :i order by id")
-    LiveData<List<Note>> allFor(int i);
+    @Query("select * from notes where id = :i and :t = :t order by id")
+    LiveData<List<Note>> allFor(int i, String t);
 }

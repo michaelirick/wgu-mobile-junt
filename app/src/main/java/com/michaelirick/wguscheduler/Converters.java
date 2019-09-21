@@ -67,6 +67,14 @@ public class Converters {
         );
     }
 
+    public static void setTimePickerValue(TimePicker picker, Date d) {
+        Calendar c = new GregorianCalendar();
+        if(d != null)
+            c.setTime(d);
+        picker.setHour(c.get(Calendar.HOUR));
+        picker.setMinute(c.get(Calendar.MINUTE));
+    }
+
     public static void setDatePickerValue(DatePicker picker, Long time) {
         Date d = fromTimestamp(time);
         Calendar c = new GregorianCalendar();

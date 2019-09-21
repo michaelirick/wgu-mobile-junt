@@ -19,6 +19,6 @@ public interface AlertDao extends WGUDao<Alert> {
     LiveData<List<Alert>> all ();
 
     @Override
-    @Query("select * from alerts where id = :i order by id")
-    LiveData<List<Alert>> allFor(int i);
+    @Query("select * from alerts where modelID = :i and modelType = :type order by id")
+    LiveData<List<Alert>> allFor(int i, String type);
 }

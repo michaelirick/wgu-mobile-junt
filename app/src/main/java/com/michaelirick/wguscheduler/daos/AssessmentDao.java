@@ -20,6 +20,6 @@ public interface AssessmentDao extends WGUDao<Assessment> {
     LiveData<List<Assessment>> all ();
 
     @Override
-    @Query("select * from assessments where courseID = :i order by id")
-    LiveData<List<Assessment>> allFor (int i);
+    @Query("select * from assessments where courseID = :i and :t = :t order by id")
+    LiveData<List<Assessment>> allFor (int i, String t);
 }

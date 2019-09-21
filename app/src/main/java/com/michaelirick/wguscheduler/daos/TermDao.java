@@ -20,8 +20,8 @@ public interface TermDao extends WGUDao<Term> {
     LiveData<List<Term>> all ();
 
     @Override
-    @Query("select * from terms where id = :i order by id")
-    LiveData<List<Term>> allFor(int i);
+    @Query("select * from terms where id = :i and :t = :t order by id")
+    LiveData<List<Term>> allFor(int i, String t);
 
     @Override
     @Query("select * from terms where id = :i limit 1")

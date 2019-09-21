@@ -24,6 +24,6 @@ public interface CourseDao extends WGUDao<Course> {
     LiveData<List<Course>> all ();
 
     @Override
-    @Query("select * from courses where termID = :i order by id")
-    LiveData<List<Course>> allFor(int i);
+    @Query("select * from courses where termID = :i and :t = :t order by id")
+    LiveData<List<Course>> allFor(int i, String t);
 }

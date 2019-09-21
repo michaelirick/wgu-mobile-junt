@@ -33,6 +33,7 @@ public class Index<T extends Model> {
     public Class viewModelClass;
     public Class addEditClass;
     public int filterId = -1;
+    public String filterType = "";
     public ApplicationActivity.Request add_request;
     public ApplicationActivity.Request edit_request;
 
@@ -96,6 +97,7 @@ public class Index<T extends Model> {
                         activity, addEditClass, null
                 );
                 intent.putExtra("filterID", filterId);
+                intent.putExtra("filterType", filterType);
                 Log.d("test", "Index#setAddButton: " + intent.getExtras().toString());
                 activity.startActivityForResult(intent, add_request.ordinal());
             }
@@ -114,7 +116,7 @@ public class Index<T extends Model> {
     public void updateList() {
         vm = (ViewModel) ViewModelProviders.of(activity).get(viewModelClass);
         Log.d("test", getClass().getName() + "<" + klass.getName() + ">" + "#updateList(" + filterId + ")");
-        vm.allFor(filterId).observe(activity, new Observer<List<T>>() {
+        vm.allFor(filterId, filterType).observe(activity, new Observer<List<T>>() {
             @Override
             public void onChanged(@Nullable List<T> ts) {
                 Log.d("test", klass.getName() + " list changed: " + ts);

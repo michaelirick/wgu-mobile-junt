@@ -12,6 +12,8 @@ import com.michaelirick.wguscheduler.models.Assessment;
 
 import java.util.Date;
 
+import static com.michaelirick.wguscheduler.Converters.setDatePickerValue;
+import static com.michaelirick.wguscheduler.Converters.setTimePickerValue;
 import static com.michaelirick.wguscheduler.Converters.timeFromTimePicker;
 
 public class AddEditAlertActivity extends AddEditActivity<Assessment> {
@@ -34,14 +36,14 @@ public class AddEditAlertActivity extends AddEditActivity<Assessment> {
 
     @Override
     public void setFields(Intent intent) {
-        boolean add = intent.getExtras() == null;
-        if (!add){
-
-        }
-
+        editTextTitle.setText(intent.getStringExtra("title"));
+        editTextDescription.setText(intent.getStringExtra("description"));
+        setDatePickerValue(datePicker, (Date) intent.getSerializableExtra("date"));
+        setTimePickerValue(timePicker, (Date) intent.getSerializableExtra("time"));
         filterId = intent.getIntExtra("filterId", 0);
         filterType = intent.getStringExtra("filterType");
     }
+
     @Override
     public String getIdExtra(Intent intent) {
         return "id";

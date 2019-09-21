@@ -25,5 +25,5 @@ public interface WGUDao<T> {
     LiveData<T> find(int i);
     LiveData<List<T>> all();
 
-    LiveData<List<T>> allFor(int i);
+    LiveData<List<T>> allFor(int i, String type);
 }

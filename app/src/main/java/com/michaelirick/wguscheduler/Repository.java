@@ -33,10 +33,10 @@ public abstract class Repository<T> {
 //        return cachedList;
     }
 
-    public LiveData<List<T>> allFor(int i) {
+    public LiveData<List<T>> allFor(int i, String filterType) {
         if(i == -1)
             return all();
-        return dao.allFor(i);
+        return dao.allFor(i, filterType);
     }
 
     private static class InsertAsyncTask<T> extends AsyncTask<T, Void, Void> {
