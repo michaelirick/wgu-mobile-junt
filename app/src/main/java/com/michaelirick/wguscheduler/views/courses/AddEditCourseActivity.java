@@ -27,6 +27,7 @@ import com.michaelirick.wguscheduler.ModelSpinner;
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.ViewModel;
 import com.michaelirick.wguscheduler.adapters.AlertAdapter;
+import com.michaelirick.wguscheduler.adapters.AssessmentAdapter;
 import com.michaelirick.wguscheduler.adapters.NoteAdapter;
 import com.michaelirick.wguscheduler.models.Alert;
 import com.michaelirick.wguscheduler.models.Assessment;
@@ -35,6 +36,8 @@ import com.michaelirick.wguscheduler.models.Note;
 import com.michaelirick.wguscheduler.models.Term;
 import com.michaelirick.wguscheduler.views.alerts.AddEditAlertActivity;
 import com.michaelirick.wguscheduler.views.alerts.AlertViewModel;
+import com.michaelirick.wguscheduler.views.assessments.AddEditAssessmentActivity;
+import com.michaelirick.wguscheduler.views.assessments.AssessmentViewModel;
 import com.michaelirick.wguscheduler.views.notes.AddEditNoteActivity;
 import com.michaelirick.wguscheduler.views.notes.NoteViewModel;
 import com.michaelirick.wguscheduler.views.terms.TermViewModel;
@@ -152,6 +155,19 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
 //                new AssessmentAdapter()
 //        );
 //        index.create();
+        assessmentsIndex= new Index<Assessment>(
+                Assessment.class,
+                this,
+                        AssessmentViewModel.class,
+                R.id.course_add_assessment,
+                R.id.course_assessments_recycler_view,
+                AddEditAssessmentActivity.class,
+                new AssessmentAdapter()
+        );
+        assessmentsIndex.filterId = thisID;
+        assessmentsIndex.add_request = Request.ADD_ASSESSMENT;
+        assessmentsIndex.edit_request = Request.EDIT_ASSESSMENT;
+        assessmentsIndex.create();
     }
 
     @Override
@@ -198,6 +214,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     @Override
     public void processResult(Request requestCode, int resultCode, Intent data) {
         Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode);
+        Alert a;
         switch(requestCode) {
             case ADD_NOTE:
                 Log.d("test", "Add Note");
@@ -208,9 +225,18 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 notesIndex.processResult(requestCode, resultCode, data);
                 break;
             case ADD_ALERTS:
-                Alert a = alertsIndex.processResult(requestCode, resultCode, data);
+                a = alertsIndex.processResult(requestCode, resultCode, data);
                 a.create(this, ApplicationReceiver.class);
                 break;
+            case EDIT_ALERTS:
+                a = alertsIndex.processResult(requestCode, resultCode, data);
+                a.create(this, ApplicationReceiver.class);
+                break;
+            case ADD_ASSESSMENT:
+            case EDIT_ASSESSMENT:
+                assessmentsIndex.processResult(requestCode, resultCode, data);
+                break;
+
             default:
                 // do nothing
         }
