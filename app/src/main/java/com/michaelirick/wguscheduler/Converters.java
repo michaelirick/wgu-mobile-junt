@@ -53,7 +53,10 @@ public class Converters {
 
     public static void setDateText(TextView view, Date date) {
         Log.d("test", "" + date);
-        view.setText(new SimpleDateFormat("dd/MM/yyyy").format(date));
+        if(date == null) {
+
+            view.setText("Not set");
+        } else view.setText(new SimpleDateFormat("dd/MM/yyyy").format(date));
     }
 
     public static void setDatePickerValue(DatePicker picker, Date d) {

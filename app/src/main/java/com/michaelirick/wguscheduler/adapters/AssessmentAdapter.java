@@ -24,18 +24,14 @@ public class AssessmentAdapter extends Adapter<Assessment, AssessmentView> {
 
     @Override
     public int getItemId() {
-        return R.layout.course_item;
+        return R.layout.assessment_item;
     }
 
     @Override
     public void setFields(AssessmentView holder, Assessment current) {
-//        holder.textViewTitle.setText(current.getTitle());
-//        holder.textViewStatus.setText(current.getStatus());
-//        holder.textViewMentorName.setText(current.getMentorName());
-//        holder.textViewMentorEmail.setText(current.getMentorEmail());
-//        holder.textViewMentorPhone.setText(current.getMentorPhone());
-        //setDateText(holder.textViewStartDate, current.getStartDate());
-        //setDateText(holder.textViewEndDate, current.getEndDate());
+        holder.name.setText(current.getName());
+        holder.type.setText(current.getType());
+        setDateText(holder.date, current.getDate());
     }
 
 

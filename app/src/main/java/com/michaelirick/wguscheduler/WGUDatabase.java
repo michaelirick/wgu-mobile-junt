@@ -29,7 +29,7 @@ import java.util.List;
 
 @Database(entities = {
         Term.class, Course.class, Assessment.class, Alert.class, Note.class
-}, version = 2)
+}, version = 3)
 @TypeConverters({Converters.class})
 public abstract class WGUDatabase extends RoomDatabase {
     private static com.michaelirick.wguscheduler.WGUDatabase instance;

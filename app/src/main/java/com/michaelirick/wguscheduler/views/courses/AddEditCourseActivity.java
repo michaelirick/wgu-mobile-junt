@@ -57,23 +57,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     public static final String EXTRA_PREFIX = "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.";
     public static final String EXTRA_ID =
             EXTRA_PREFIX + ".EXTRA_ID";
-    public static final String EXTRA_TITLE = EXTRA_PREFIX + "EXTRA_TITLE";
-    public static final String EXTRA_START_DATE =
-            "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_START_DATE";
-    public static final String EXTRA_END_DATE =
-            "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_END_DATE";
-    public static final String EXTRA_STATUS =
-            "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_STATUS";
-    public static final String EXTRA_MENTOR_NAME =
-            "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_MENTOR_NAME";
-    public static final String EXTRA_MENTOR_PHONE =
-            "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_MENTOR_PHONE";
-    public static final String EXTRA_MENTOR_EMAIL =
-            "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_MENTOR_EMAIL";
-    public static final String EXTRA_TERM_ID =
-            "com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity.EXTRA_TERM_ID";
-    private static final int ADD_NOTE_REQUEST = 1;
-    private static final int EDIT_NOTE_REQUEST = 2;
+
 
     private EditText editTextTitle;
     private DatePicker datePickerStartDate;
@@ -108,6 +92,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     public void setupLists() {
         setupNotes();
         setupAlerts();
+        setupAssessments();
     }
 
     private void setupAlerts() {
@@ -158,7 +143,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         assessmentsIndex= new Index<Assessment>(
                 Assessment.class,
                 this,
-                        AssessmentViewModel.class,
+                AssessmentViewModel.class,
                 R.id.course_add_assessment,
                 R.id.course_assessments_recycler_view,
                 AddEditAssessmentActivity.class,
@@ -185,13 +170,6 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 new TermViewModel(getApplication()),
                 intent.getIntExtra("termID", filterID)
         );
-//        addAlertButton(
-//                this,
-//                R.id.start_date_alert,
-//                intent.getStringExtra("title") + " Start Date",
-//                "Your course " + intent.getStringExtra("title") + " is starting.",
-//                (Date) intent.getSerializableExtra("startDate")
-//        );
     }
 
     @Override
@@ -213,7 +191,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
 
     @Override
     public void processResult(Request requestCode, int resultCode, Intent data) {
-        Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode);
+        Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode + ": " + data.toUri(0));
         Alert a;
         switch(requestCode) {
             case ADD_NOTE:

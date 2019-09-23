@@ -42,7 +42,34 @@
                 android:orientation="vertical"
                 android:id="@+id/info"
                 >
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RadioButton android:id="@+id/radio_performance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Performance"
+                        android:onClick="onRadioButtonClicked"/>
+                    <RadioButton android:id="@+id/radio_objective"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Objective"
+                        android:onClick="onRadioButtonClicked"/>
+                </RadioGroup>
 
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_text_title"/>
+                <DatePicker
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:id="@+id/datepicker">
+
+                </DatePicker>
 
             </LinearLayout>
         </LinearLayout>
@@ -77,7 +104,20 @@
                 android:orientation="vertical"
                 android:id="@+id/alerts_list"
                 >
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/alerts_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/alert_item" />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/add_alert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="32dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_add" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
