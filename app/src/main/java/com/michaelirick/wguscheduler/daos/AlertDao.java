@@ -21,4 +21,7 @@ public interface AlertDao extends WGUDao<Alert> {
     @Override
     @Query("select * from alerts where modelID = :i and modelType = :type order by id")
     LiveData<List<Alert>> allFor(int i, String type);
+
+    @Query("select * from alerts where date(datetime(alerts.date / 1000 , 'unixepoch')) = date('now')")
+    LiveData<List<Alert>> allForToday();
 }

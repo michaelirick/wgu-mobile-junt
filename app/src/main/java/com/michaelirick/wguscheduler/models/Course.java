@@ -41,15 +41,15 @@ public class Course extends Model {
     }
 
     public Course(Intent data, Class activity) {
-       // id = data.getIntExtra(getColumnId(activity, "EXTRA_ID"), 0);
-       // title = data.getStringExtra(getColumnId(activity, "EXTRA_TITLE"));
-       // termID = data.getIntExtra(getColumnId(activity, "EXTRA_TERM_ID"), 0);
         termID = data.getIntExtra("termID", 0);
         title = data.getStringExtra("title");
         id = data.getIntExtra("id", 0);
         startDate = (Date) data.getSerializableExtra("startDate");
         endDate = (Date) data.getSerializableExtra("endDate");
-        Log.d("test", "Course(" + data.getExtras().toString() + "): " + toLongString());
+        mentorName = data.getStringExtra("mentorName");
+        mentorEmail= data.getStringExtra("mentorEmail");
+        mentorPhone = data.getStringExtra("mentorPhone");
+//        Log.d("test", "Course(" + data.getExtras().toString() + "): " + toLongString());
     }
 
     @Override
@@ -64,6 +64,9 @@ public class Course extends Model {
         intent.putExtra("termID", termID);
         intent.putExtra("startDate", startDate);
         intent.putExtra("endDate", endDate);
+        intent.putExtra("mentorName", mentorName);
+        intent.putExtra("mentorEmail", mentorEmail);
+        intent.putExtra("mentorPhone", mentorPhone);
         return intent;
     }
 

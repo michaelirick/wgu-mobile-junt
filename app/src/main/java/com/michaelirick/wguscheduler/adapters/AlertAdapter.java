@@ -27,13 +27,6 @@ public class AlertAdapter extends Adapter<Alert, AlertView> {
         holder.textViewTitle.setText(current.getTitle());
         holder.textViewDescription.setText(current.getDescription());
         setDateText(holder.textViewDate, current.getDate());
-//        holder.textViewTitle.setText(current.getTitle());
-//        holder.textViewStatus.setText(current.getStatus());
-//        holder.textViewMentorName.setText(current.getMentorName());
-//        holder.textViewMentorEmail.setText(current.getMentorEmail());
-//        holder.textViewMentorPhone.setText(current.getMentorPhone());
-        //setDateText(holder.textViewStartDate, current.getStartDate());
-        //setDateText(holder.textViewEndDate, current.getEndDate());
     }
 
 

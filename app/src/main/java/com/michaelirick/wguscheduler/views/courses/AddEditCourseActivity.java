@@ -60,6 +60,9 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
 
 
     private EditText editTextTitle;
+    private EditText editTextMentorName;
+    private EditText editTextMentorEmail;
+    private EditText editTextMentorPhone;
     private DatePicker datePickerStartDate;
     private DatePicker datePickerEndDate;
     ModelSpinner<Term> selectTerm;
@@ -85,6 +88,9 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         editTextTitle = findViewById(R.id.edit_text_title);
         datePickerStartDate = findViewById(R.id.date_picker_start_date);
         datePickerEndDate = findViewById(R.id.date_picker_end_date);
+        editTextMentorName = findViewById(R.id.edit_text_mentor_name);
+        editTextMentorEmail = findViewById(R.id.edit_text_mentor_email);
+        editTextMentorPhone = findViewById(R.id.edit_text_mentor_phone);
         setupPanels();
         setupLists();
     }
@@ -130,16 +136,6 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     }
 
     public void setupAssessments() {
-//        assessmentsIndex = new Index<Term>(
-//                Assessment.class,
-//                this,
-//                AssessmentViewModel.class,
-//                R.id.button_add_assessment,
-//                R.id.terms_recycler_view,
-//                AddEditAssessmentActivity.class,
-//                new AssessmentAdapter()
-//        );
-//        index.create();
         assessmentsIndex= new Index<Assessment>(
                 Assessment.class,
                 this,
@@ -170,6 +166,9 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 new TermViewModel(getApplication()),
                 intent.getIntExtra("termID", filterID)
         );
+        editTextMentorName.setText(intent.getStringExtra("mentorName"));
+        editTextMentorEmail.setText(intent.getStringExtra("mentorEmail"));
+        editTextMentorPhone.setText(intent.getStringExtra("mentorPhone"));
     }
 
     @Override
@@ -181,6 +180,9 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
     public Intent dataFromFields() {
         Intent data = new Intent();
         data.putExtra("title", editTextTitle.getText().toString());
+        data.putExtra("mentorName", editTextMentorName.getText().toString());
+        data.putExtra("mentorEmail", editTextMentorEmail.getText().toString());
+        data.putExtra("mentorPhone", editTextMentorPhone.getText().toString());
 
         data.putExtra("startDate", Converters.getDateFromDatePicker(datePickerStartDate));
         data.putExtra("endDate", Converters.getDateFromDatePicker(datePickerEndDate));

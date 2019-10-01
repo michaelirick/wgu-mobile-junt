@@ -44,7 +44,11 @@
                 android:orientation="vertical"
                 android:id="@+id/course_info"
                 >
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:text="Title:"/>
                 <EditText
                     android:id="@+id/edit_text_title"
                     android:layout_width="match_parent"
@@ -88,6 +92,33 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/select_term_ids"
                     android:spinnerMode="dropdown"></Spinner>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mentor Name:"
+                    android:textAppearance="@android:style/TextAppearance.Medium"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_text_mentor_name"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mentor Email:"
+                    android:textAppearance="@android:style/TextAppearance.Medium"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_text_mentor_email"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mentor Phone:"
+                    android:textAppearance="@android:style/TextAppearance.Medium"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_text_mentor_phone"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout

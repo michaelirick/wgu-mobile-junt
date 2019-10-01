@@ -15,26 +15,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/panel_border"
+            android:padding="20px"
             >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/header"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:text="Alert Info"
-                    android:layout_centerVertical="true"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/toggle_info"
-                    android:text="@string/toggle"
-                    android:layout_alignParentRight="true"
-                    />
-            </RelativeLayout>
             <LinearLayout
 
                 android:layout_width="match_parent"
@@ -42,10 +24,18 @@
                 android:orientation="vertical"
                 android:id="@+id/info"
                 >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Title:"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edit_text_title"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description:"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -61,40 +51,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:timePickerMode="spinner"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/panel_border"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:text="Alerts"
-                    android:layout_centerVertical="true"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/toggle_alerts"
-                    android:text="@string/toggle"
-                    android:layout_alignParentRight="true"
-                    />
-            </RelativeLayout>
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/alerts_list"
-                >
-
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

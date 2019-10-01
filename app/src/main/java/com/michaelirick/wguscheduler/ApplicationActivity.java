@@ -68,8 +68,7 @@ public abstract class ApplicationActivity
                 Arrays.asList(
                         new RequestHandler(this, R.id.nav_terms, TermIndexActivity.class, Request.TERMS),
                         new RequestHandler(this, R.id.nav_courses, CourseIndexActivity.class, Request.COURSES),
-                        new RequestHandler(this, R.id.nav_assessments, AssessmentIndexActivity.class, Request.ASSESSMENTS),
-                        new RequestHandler(this, R.id.nav_alerts, AlertIndexActivity.class, Request.ALERTS)
+                        new RequestHandler(this, R.id.nav_assessments, AssessmentIndexActivity.class, Request.ASSESSMENTS)
                 )
         );
 

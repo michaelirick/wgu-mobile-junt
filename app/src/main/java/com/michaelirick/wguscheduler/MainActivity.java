@@ -23,29 +23,5 @@ public class MainActivity extends ApplicationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setMenu();
-        seedData = findViewById(R.id.seed_data);
-        seedData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Date now = fromTimestamp(now());
-                Term t1 = new Term(
-                        "Term 1",
-                        now,
-                        now
-                );
-                TermViewModel tvm = new TermViewModel(getApplication());
-                tvm.insert(t1);
-//                Course c1 = new Course(
-//                        "Course 1",
-//                        now,
-//                        now,
-//                        "started",
-//                        "Cool Mentor",
-//                        "1112223344",
-//                        "cool@wgu.edu",
-//                        t1.id
-//                );
-            }
-        });
     }
 }
