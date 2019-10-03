@@ -1,6 +1,10 @@
 package com.michaelirick.wguscheduler.views.terms;
 
+import android.app.AlertDialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +20,7 @@ import com.michaelirick.wguscheduler.ApplicationActivity;
 import com.michaelirick.wguscheduler.Converters;
 import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.R;
+import com.michaelirick.wguscheduler.ViewModel;
 import com.michaelirick.wguscheduler.adapters.CourseAdapter;
 import com.michaelirick.wguscheduler.models.Course;
 import com.michaelirick.wguscheduler.models.Term;
@@ -23,6 +28,7 @@ import com.michaelirick.wguscheduler.views.courses.AddEditCourseActivity;
 import com.michaelirick.wguscheduler.views.courses.CourseViewModel;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.michaelirick.wguscheduler.Converters.setDatePickerValue;
 
@@ -84,5 +90,20 @@ public class AddEditTermActivity extends AddEditActivity<Term> {
     public void processResult(ApplicationActivity.Request requestCode, int resultCode, Intent data) {
         debug("processResult", "" + data);
         courseIndex.processResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean canDelete() {
+        return courseIndex.isEmpty();
+    }
+
+
+    @Override
+    public void showDeleteAlert() {
+        new AlertDialog.Builder(AddEditTermActivity.this)
+                .setTitle("Cannot delete term")
+                .setMessage("You cannot delete this term until all courses are deleted.")
+                .setIcon(R.drawable.ic_close)
+                .show();
     }
 }

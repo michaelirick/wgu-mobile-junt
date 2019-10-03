@@ -30,7 +30,7 @@ public abstract class AddEditActivity<T> extends ApplicationActivity{
     public int thisID = 0;
     public int filterID = 0;
     public String filterType = "";
-
+    public T object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,19 @@ public abstract class AddEditActivity<T> extends ApplicationActivity{
         finish();
     }
 
+    public boolean canDelete() {
+        return true;
+    }
+
+    public void showDeleteAlert() {
+
+    }
+
     public void delete() {
+        if(!canDelete()) {
+            showDeleteAlert();
+            return;
+        }
         Intent data = getIntent();
         data.putExtra("delete", true);
         debug("#delete", data.toUri(0));

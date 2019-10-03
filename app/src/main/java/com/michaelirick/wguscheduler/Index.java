@@ -134,7 +134,10 @@ public class Index<T extends Model> {
     public T processResult(ApplicationActivity.Request requestCode, int resultCode, Intent data) {
         Log.d("test", "Index<" + klass.getName() + ">#processResult: " + requestCode + ", " + resultCode );
         T r = null;
-        if (requestCode == add_request && resultCode == RESULT_OK) {
+        if(data != null && data.getBooleanExtra("delete", false)) {
+            T t = newElement(data);
+             vm.delete(t);
+        } else if (requestCode == add_request && resultCode == RESULT_OK) {
             T t = newElement(data);
             vm.insert(t);
             //Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
@@ -158,5 +161,9 @@ public class Index<T extends Model> {
         }
         updateList();
         return r;
+    }
+
+    public boolean isEmpty() {
+        return adapter.getItemCount() == 0;
     }
 }
