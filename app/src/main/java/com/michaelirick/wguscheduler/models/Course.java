@@ -49,6 +49,7 @@ public class Course extends Model {
         mentorName = data.getStringExtra("mentorName");
         mentorEmail= data.getStringExtra("mentorEmail");
         mentorPhone = data.getStringExtra("mentorPhone");
+        status = data.getStringExtra("status");
 //        Log.d("test", "Course(" + data.getExtras().toString() + "): " + toLongString());
     }
 
@@ -67,6 +68,7 @@ public class Course extends Model {
         intent.putExtra("mentorName", mentorName);
         intent.putExtra("mentorEmail", mentorEmail);
         intent.putExtra("mentorPhone", mentorPhone);
+        intent.putExtra("status", status);
         return intent;
     }
 

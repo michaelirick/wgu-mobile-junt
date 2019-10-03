@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -46,7 +47,10 @@ import com.michaelirick.wguscheduler.views.terms.TermViewModel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.michaelirick.wguscheduler.Converters.fromTimestamp;
@@ -72,6 +76,8 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
 
     private Button buttonStartDateAlert;
     private Index<Alert> alertsIndex;
+
+    private String status;
 
     void setupPanels() {
         setupPanel(R.id.toggle_info, R.id.course_info);
@@ -169,6 +175,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         editTextMentorName.setText(intent.getStringExtra("mentorName"));
         editTextMentorEmail.setText(intent.getStringExtra("mentorEmail"));
         editTextMentorPhone.setText(intent.getStringExtra("mentorPhone"));
+        setStatus(intent.getStringExtra("status"));
     }
 
     @Override
@@ -183,7 +190,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         data.putExtra("mentorName", editTextMentorName.getText().toString());
         data.putExtra("mentorEmail", editTextMentorEmail.getText().toString());
         data.putExtra("mentorPhone", editTextMentorPhone.getText().toString());
-
+        data.putExtra("status", status);
         data.putExtra("startDate", Converters.getDateFromDatePicker(datePickerStartDate));
         data.putExtra("endDate", Converters.getDateFromDatePicker(datePickerEndDate));
         data.putExtra("termID", selectTerm.getSelectedItem().id);
@@ -222,5 +229,41 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         }
     }
 
+    public void setStatus(String status) {
+        HashMap<String, Integer> radioButtons = new HashMap() {{
+            put("In Progress", R.id.radio_in_progress);
+            put("Completed", R.id.radio_completed);
+            put("Plan To Take", R.id.radio_plan_to_take);
+            put("Dropped", R.id.radio_dropped);
+        }};
+        for(Map.Entry<String, Integer> entry : radioButtons.entrySet()) {
+            if(status == entry.getKey()) {
+                RadioButton button = findViewById(entry.getValue());
+                button.setChecked(true);
+            }
+        }
+        this.status = status;
+    }
 
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+        switch (view.getId()) {
+            case R.id.radio_in_progress:
+                if(checked)
+                    setStatus("In Progress");
+                break;
+            case R.id.radio_completed:
+                if(checked)
+                    setStatus("Completed");
+                break;
+            case R.id.radio_plan_to_take:
+                if(checked)
+                    setStatus("Plan To Take");
+                break;
+            case R.id.radio_dropped:
+                if(checked)
+                    setStatus("Dropped");
+                break;
+        }
+    }
 }

@@ -20,8 +20,6 @@ public class CourseView extends RecyclerView.ViewHolder {
     public TextView textViewMentorName;
     public TextView textViewMentorPhone;
     public TextView textViewMentorEmail;
-    public Index<Assessment> assessmentIndex;
-    public Index<Note> noteIndex;
 
     public CourseView(View itemView) {
         super(itemView);
@@ -32,14 +30,5 @@ public class CourseView extends RecyclerView.ViewHolder {
         textViewMentorName = itemView.findViewById(R.id.text_view_mentor_name);
         textViewMentorPhone = itemView.findViewById(R.id.text_view_mentor_phone);
         textViewMentorEmail = itemView.findViewById(R.id.text_view_mentor_email);
-
-//        assessmentIndex = new Index<>();
-//        assessmentIndex.klass = Assessment.class;
-////        assessmentIndex.activity = ;
-//        assessmentIndex.viewModelClass = AssessmentViewModel.class;
-//        assessmentIndex.adapter = new AssessmentAdapter();
-//        assessmentIndex.recyclerViewId = R.id.course_assessments_recycler_view;
-//        //assessmentIndex.addEditClass = AddEditAssessmentActivity.class;
-//        assessmentIndex.create();
     }
 }

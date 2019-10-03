@@ -1,6 +1,8 @@
 package com.michaelirick.wguscheduler.views.notes;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.view.View;
 import android.widget.EditText;
 
 import com.michaelirick.wguscheduler.AddEditActivity;
@@ -16,6 +18,12 @@ public class AddEditNoteActivity extends AddEditActivity<Note> {
         if(intent.hasExtra("text")) {
             noteText.setText(intent.getStringExtra("text"));
         }
+    }
+
+    public void share(View view) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "", null));
+        startActivity(Intent.createChooser(intent, "Choose an email client:"));
     }
 
     @Override

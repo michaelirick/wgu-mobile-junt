@@ -24,6 +24,8 @@ public class AssessmentIndexActivity extends ApplicationActivity {
         index.addButtonId = R.id.button_add_assessment;
         index.recyclerViewId = R.id.assessment_recycler_view;
         index.addEditClass = AddEditAssessmentActivity.class;
+        index.add_request = Request.ADD_ASSESSMENT;
+        index.edit_request = Request.EDIT_ASSESSMENT;
         index.create();
     }
 }

@@ -64,8 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_mentor_name"
-            android:text="Mentor Phone"
-        android:layout_alignParentEnd="true"/>
+            android:text="Mentor Phone"/>
 
 
         <TextView
