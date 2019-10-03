@@ -59,6 +59,7 @@ public class Index<T extends Model> {
                         activity, addEditClass, (T) o
                 );
                 intent.putExtra("filterID", filterId);
+                intent.putExtra("filterType", filterType);
                 activity.startActivityForResult(intent, edit_request.ordinal());
             }
         });
@@ -132,7 +133,7 @@ public class Index<T extends Model> {
     }
 
     public T processResult(ApplicationActivity.Request requestCode, int resultCode, Intent data) {
-        Log.d("test", "Index<" + klass.getName() + ">#processResult: " + requestCode + ", " + resultCode );
+        Log.d("test", "Index<" + klass.getName() + ">#processResult: " + requestCode + ", " + resultCode + ": " + (data == null ? "null data" : data.toUri(0)));
         T r = null;
         if(data != null && data.getBooleanExtra("delete", false)) {
             T t = newElement(data);

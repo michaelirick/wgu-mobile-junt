@@ -6,6 +6,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.michaelirick.wguscheduler.ApplicationActivity;
 import com.michaelirick.wguscheduler.Model;
@@ -95,6 +96,8 @@ public class Alert extends Model {
     }
 
     public Alert(Intent data, Class activity) {
+        Log.d("test", "Alert::Alert: " + data.toUri(0));
+        id = data.getIntExtra("id", 0);
         title = data.getStringExtra("title");
         description = data.getStringExtra("description");
         date = (Date) data.getSerializableExtra("date");
@@ -104,6 +107,7 @@ public class Alert extends Model {
 
     public Intent toIntent(Context context, Class activity) {
         Intent intent = new Intent(context, activity);
+        intent.putExtra("id", id);
         intent.putExtra("title", title);
         intent.putExtra("description", description);
         intent.putExtra("date", date);

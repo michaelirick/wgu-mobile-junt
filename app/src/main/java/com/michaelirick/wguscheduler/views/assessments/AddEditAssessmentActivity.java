@@ -2,6 +2,7 @@ package com.michaelirick.wguscheduler.views.assessments;
 
 import android.content.Intent;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.michaelirick.wguscheduler.AddEditActivity;
+import com.michaelirick.wguscheduler.ApplicationReceiver;
 import com.michaelirick.wguscheduler.Converters;
 import com.michaelirick.wguscheduler.Index;
 import com.michaelirick.wguscheduler.R;
@@ -109,5 +111,23 @@ public class AddEditAssessmentActivity extends AddEditActivity<Assessment> {
         debug("#dataFromFields", data.toUri(0));
         return data;
     }
+    public void processResult(Request requestCode, int resultCode, Intent data) {
+//        Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode + ": " + data.toUri(0));
+        Alert a;
+        switch(requestCode) {
+            case ADD_ALERTS:
+                a = alertsIndex.processResult(requestCode, resultCode, data);
+                if(a != null)
+                    a.create(this, ApplicationReceiver.class);
+                break;
+            case EDIT_ALERTS:
+                a = alertsIndex.processResult(requestCode, resultCode, data);
+                if(a != null)
+                    a.create(this, ApplicationReceiver.class);
+                break;
 
+            default:
+                // do nothing
+        }
+    }
 }

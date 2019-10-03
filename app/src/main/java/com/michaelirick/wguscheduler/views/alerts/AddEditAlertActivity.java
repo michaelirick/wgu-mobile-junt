@@ -1,6 +1,7 @@
 package com.michaelirick.wguscheduler.views.alerts;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -36,11 +37,13 @@ public class AddEditAlertActivity extends AddEditActivity<Assessment> {
 
     @Override
     public void setFields(Intent intent) {
+
+        Log.d("test", "AddEddAlertActivity#setFields: " + intent.toUri(0));
         editTextTitle.setText(intent.getStringExtra("title"));
         editTextDescription.setText(intent.getStringExtra("description"));
         setDatePickerValue(datePicker, (Date) intent.getSerializableExtra("date"));
         setTimePickerValue(timePicker, (Date) intent.getSerializableExtra("time"));
-        filterId = intent.getIntExtra("filterId", 0);
+        filterId = intent.getIntExtra("filterID", 0);
         filterType = intent.getStringExtra("filterType");
     }
 
@@ -52,13 +55,15 @@ public class AddEditAlertActivity extends AddEditActivity<Assessment> {
     @Override
     public Intent dataFromFields() {
         Intent data = new Intent();
-        data.putExtra("title", editTextTitle.getText());
-        data.putExtra("description", editTextDescription.getText());
+        data.putExtra("title", editTextTitle.getText().toString());
+        data.putExtra("description", editTextDescription.getText().toString());
         Date d = Converters.getDateFromDatePicker(datePicker);
         d.setTime(d.getTime() + timeFromTimePicker(timePicker));
         data.putExtra("date", d);
         data.putExtra("modelID", filterId);
         data.putExtra("modelType", filterType);
+        Log.d("test", "AddEddAlertActivity#dataFromFields filterId: " + filterId);
+        Log.d("test", "AddEddAlertActivity#dataFromFields: " + data.toUri(0));
         return data;
     }
 

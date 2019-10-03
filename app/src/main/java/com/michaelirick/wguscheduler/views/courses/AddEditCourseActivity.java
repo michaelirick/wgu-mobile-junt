@@ -99,6 +99,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
         editTextMentorPhone = findViewById(R.id.edit_text_mentor_phone);
         setupPanels();
         setupLists();
+        setupAlerts();
     }
 
     public void setupLists() {
@@ -200,7 +201,7 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
 
     @Override
     public void processResult(Request requestCode, int resultCode, Intent data) {
-        Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode + ": " + data.toUri(0));
+//        Log.d("test", "AddEditCourseActivity#processResult: " + requestCode + ", " + resultCode + ": " + data.toUri(0));
         Alert a;
         switch(requestCode) {
             case ADD_NOTE:
@@ -213,11 +214,13 @@ public class AddEditCourseActivity extends AddEditActivity<Course> {
                 break;
             case ADD_ALERTS:
                 a = alertsIndex.processResult(requestCode, resultCode, data);
-                a.create(this, ApplicationReceiver.class);
+                if(a != null)
+                    a.create(this, ApplicationReceiver.class);
                 break;
             case EDIT_ALERTS:
                 a = alertsIndex.processResult(requestCode, resultCode, data);
-                a.create(this, ApplicationReceiver.class);
+                if(a != null)
+                    a.create(this, ApplicationReceiver.class);
                 break;
             case ADD_ASSESSMENT:
             case EDIT_ASSESSMENT:
