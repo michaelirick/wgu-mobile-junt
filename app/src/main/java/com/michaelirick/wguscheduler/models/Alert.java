@@ -6,12 +6,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.AlarmClock;
 import android.util.Log;
 
 import com.michaelirick.wguscheduler.ApplicationActivity;
 import com.michaelirick.wguscheduler.Model;
 
 import java.sql.Time;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity(tableName = "alerts")
@@ -84,16 +86,14 @@ public class Alert extends Model {
         intent.putExtra("alert_description", description);
         PendingIntent sender = PendingIntent.getBroadcast(app, 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) app.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime(), sender);
+        Log.d("test", "new alarm: " + date.getTime());
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        Log.d("test", "new alarm from calendar: " + c.getTimeInMillis());
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime(), sender); // this sets today at whatever time
+        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender); // this sets today at whatever time
     }
 
-    public static AlarmManager createAlarm(ApplicationActivity app, Class receiverClass, Date date) {
-        Intent intent = new Intent(app, receiverClass);
-        PendingIntent sender = PendingIntent.getBroadcast(app, 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) app.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime(), sender);
-        return alarmManager;
-    }
 
     public Alert(Intent data, Class activity) {
         Log.d("test", "Alert::Alert: " + data.toUri(0));

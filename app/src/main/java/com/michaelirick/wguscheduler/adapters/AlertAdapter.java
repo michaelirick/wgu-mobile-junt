@@ -4,6 +4,7 @@ package com.michaelirick.wguscheduler.adapters;
 import android.view.View;
 
 import com.michaelirick.wguscheduler.Adapter;
+import com.michaelirick.wguscheduler.Converters;
 import com.michaelirick.wguscheduler.R;
 import com.michaelirick.wguscheduler.models.Alert;
 import com.michaelirick.wguscheduler.views.alerts.AlertView;
@@ -26,7 +27,7 @@ public class AlertAdapter extends Adapter<Alert, AlertView> {
     public void setFields(AlertView holder, Alert current) {
         holder.textViewTitle.setText(current.getTitle());
         holder.textViewDescription.setText(current.getDescription());
-        setDateText(holder.textViewDate, current.getDate());
+        Converters.setDateTimeText(holder.textViewDate, current.getDate());
     }
 
 

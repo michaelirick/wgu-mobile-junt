@@ -12,9 +12,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 public class Converters {
     @TypeConverter
@@ -31,12 +37,28 @@ public class Converters {
         return System.currentTimeMillis() / 1000L;
     }
 
+    public static Date fieldsToDate(DatePicker datePicker, TimePicker timePicker) {
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year =  datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+        calendar.set(Calendar.MINUTE, timePicker.getMinute());
+        return calendar.getTime();
+    }
+
     public static Long timeFromTimePicker(TimePicker timePicker) {
-        int h = timePicker.getHour();
+        Calendar mCalendar = new GregorianCalendar();
+        TimeZone mTimeZone = mCalendar.getTimeZone();
+        int mGMTOffset = mTimeZone.getRawOffset();
+        int h = timePicker.getHour() - mGMTOffset;
         int m = timePicker.getMinute();
         Long t = new Long(0);
         t += h * 60 * 60 * 1000; // hours
         t += m * 60 * 1000; // minutes
+
         return t;
     }
 
@@ -51,12 +73,31 @@ public class Converters {
         return calendar.getTime();
     }
 
+    public static SimpleDateFormat dateFormat() {
+        return new SimpleDateFormat("MM/dd/yyyy");
+    }
+
+    public static DateTimeFormatter dateTimeFormat() {
+        return DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
+    }
+
     public static void setDateText(TextView view, Date date) {
         Log.d("test", "" + date);
         if(date == null) {
 
             view.setText("Not set");
-        } else view.setText(new SimpleDateFormat("dd/MM/yyyy").format(date));
+        } else view.setText(new SimpleDateFormat("MM/dd/yyyy").format(date));
+    }
+
+    public static void setDateTimeText(TextView view, Date date) {
+         Log.d("test", "" + date);
+        if(date == null) {
+
+            view.setText("Not set");
+        } else {
+            LocalDateTime localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            view.setText(localDate.format(dateTimeFormat()));
+        }
     }
 
     public static void setDatePickerValue(DatePicker picker, Date d) {
@@ -72,6 +113,9 @@ public class Converters {
 
     public static void setTimePickerValue(TimePicker picker, Date d) {
         Calendar c = new GregorianCalendar();
+        Calendar mCalendar = new GregorianCalendar();
+        TimeZone mTimeZone = mCalendar.getTimeZone();
+        int mGMTOffset = mTimeZone.getRawOffset();
         if(d != null)
             c.setTime(d);
         picker.setHour(c.get(Calendar.HOUR));

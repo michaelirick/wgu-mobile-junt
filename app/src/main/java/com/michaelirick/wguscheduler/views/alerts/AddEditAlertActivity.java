@@ -57,8 +57,7 @@ public class AddEditAlertActivity extends AddEditActivity<Assessment> {
         Intent data = new Intent();
         data.putExtra("title", editTextTitle.getText().toString());
         data.putExtra("description", editTextDescription.getText().toString());
-        Date d = Converters.getDateFromDatePicker(datePicker);
-        d.setTime(d.getTime() + timeFromTimePicker(timePicker));
+        Date d = Converters.fieldsToDate(datePicker, timePicker);
         data.putExtra("date", d);
         data.putExtra("modelID", filterId);
         data.putExtra("modelType", filterType);
